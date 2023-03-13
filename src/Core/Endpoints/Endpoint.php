@@ -67,6 +67,11 @@ abstract class Endpoint implements IEndpointInterface
         return $this->url;
     }
 
+    protected function getResponseEntityClassName(): string
+    {
+        return get_class($this) . "Response";
+    }
+
     /**
      * @param IRequestInterface $parameters
      * @return $this
@@ -98,6 +103,12 @@ abstract class Endpoint implements IEndpointInterface
             default:
                 throw new \Exception("Http Method not detected");
         }
-        return $response->bindEntity(get_class($this))->handle($this->getOutputMode());
+
+        return $response->bindEntity(static::getResponseEntityClassName())->handle($this->getOutputMode());
+    }
+
+    public function getQueryBagClassName(): string
+    {
+        return get_class($this) . 'QueryBag';
     }
 }

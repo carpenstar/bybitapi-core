@@ -17,28 +17,21 @@ class EndpointFabric implements IFabricInterface
      */
     public static function make(string $className, ?IRequestInterface $data = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IEndpointInterface
     {
-        /**
-         * @var IEndpointInterface $endpoint
-         */
-        $endpoint = new $className();
-        if (!in_array(IEndpointInterface::class, class_implements($endpoint))) {
+        if (!in_array(IEndpointInterface::class, class_implements($className))) {
             throw new \Exception("The endpoint {$className} must implement the interface " . IEndpointInterface::class . "!");
         }
 
+        $endpoint = new $className();
+        $isQueryBagExist = class_exists($endpoint->getQueryBagClassName());
          /**
          * Проверка необходимости и наличия переданного обьекта параметров запроса
          */
-        $isRequestParameterExist = class_exists($className . 'QueryBag');
-        if ($isRequestParameterExist && empty($data)) {
-            throw new \Exception("The endpoint {$className} required request parameters from {$className}Parameters !");
-        }
-
-        if ($isRequestParameterExist && get_class($data) != $className . 'QueryBag') {
-            throw new \Exception("The parameters passed must be a class {$className}Parameters instead " . get_class($data));
+        if ($isQueryBagExist && empty($data)) {
+            throw new \Exception("The endpoint {$className} required {$endpoint->getQueryBagClassName()} object!");
         }
 
         return $endpoint
             ->setOutputMode($outputMode)
-            ->setParameters($isRequestParameterExist ? $data : new StubQueryBag());
+            ->setParameters($isQueryBagExist ? $data : new StubQueryBag());
     }
 }

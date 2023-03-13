@@ -196,7 +196,7 @@ class CurlResponse implements IResponseInterface
      */
     public function bindEntity(string $className): self
     {
-        $this->entity = $className . "Response";
+        $this->entity = $className;
         return $this;
     }
 
