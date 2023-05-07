@@ -5,7 +5,7 @@ use Carpenstar\ByBitAPI\Core\Auth\Credentials;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
-use Carpenstar\ByBitAPI\Core\Fabrics\EndpointFabric;
+use Carpenstar\ByBitAPI\Core\Builders\EndpointBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
@@ -35,7 +35,7 @@ class BybitAPI
     public function execute(string $endpointClassName, ?IRequestInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
     {
         try {
-            return EndpointFabric::make($endpointClassName, $parameters, $outputMode)->execute();
+            return EndpointBuilder::make($endpointClassName, $parameters, $outputMode)->execute();
         } catch (ApiException $e) {
             $this->exception($e);
         } catch (\Exception $e) {
