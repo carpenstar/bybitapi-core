@@ -42,4 +42,20 @@ class EnumIntervals
 
     /** 1 month */
     const MONTH_1 = '1m';
+
+    const INTERVALS_LIST = [
+        self::MINUTE_1,
+        self::MINUTE_3,
+        self::MINUTE_5,
+        self::MINUTE_15,
+        self::MINUTE_30,
+        self::HOUR_1,
+        self::HOUR_2,
+        self::HOUR_4,
+        self::HOUR_6,
+        self::HOUR_12,
+        self::DAY_1,
+        self::WEEK_1,
+        self::MONTH_1
+    ];
 }
