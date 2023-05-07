@@ -3,7 +3,7 @@ namespace Carpenstar\ByBitAPI\Core\Response;
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
-use Carpenstar\ByBitAPI\Core\Fabrics\ResponseFabric;
+use Carpenstar\ByBitAPI\Core\Builders\ResponseBuilder;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
@@ -227,7 +227,7 @@ class CurlResponse implements IResponseInterface
             default:
                 $collection = new EntityCollection();
                 array_walk($data[$this->entity::$rootDataKey], function ($item) use ($collection) {
-                    $collection->push(ResponseFabric::make($this->entity, $item));
+                    $collection->push(ResponseBuilder::make($this->entity, $item));
                 });
                 break;
         }

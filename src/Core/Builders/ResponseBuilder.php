@@ -1,11 +1,11 @@
 <?php
-namespace Carpenstar\ByBitAPI\Core\Fabrics;
+namespace Carpenstar\ByBitAPI\Core\Builders;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IFabricInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseEntityInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 
-class ResponseFabric implements IFabricInterface
+class ResponseBuilder implements IFabricInterface
 {
     /**
      * @param string $className

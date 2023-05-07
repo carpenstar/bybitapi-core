@@ -5,9 +5,12 @@ use Carpenstar\ByBitAPI\Core\Auth\Credentials;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
-use Carpenstar\ByBitAPI\Core\Fabrics\EndpointFabric;
+use Carpenstar\ByBitAPI\Core\Builders\EndpointBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
+use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
+use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 
 class BybitAPI
 {
@@ -32,13 +35,24 @@ class BybitAPI
     public function execute(string $endpointClassName, ?IRequestInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
     {
         try {
-            return EndpointFabric::make($endpointClassName, $parameters, $outputMode)->execute();
+            return EndpointBuilder::make($endpointClassName, $parameters, $outputMode)->execute();
         } catch (ApiException $e) {
             $this->exception($e);
         } catch (\Exception $e) {
             $this->exception($e);
             throw new SDKException($e);
         }
+    }
+
+    /**
+     * @param string $webSocketChannelClassName
+     * @param array $data
+     * @return void
+     * @throws \Exception
+     */
+    public function websockets(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = 0): void
+    {
+        WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode)->execute();
     }
 
     /**
