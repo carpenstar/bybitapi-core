@@ -8,6 +8,9 @@ use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
 use Carpenstar\ByBitAPI\Core\Fabrics\EndpointFabric;
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
+use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
+use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 
 class BybitAPI
 {
@@ -39,6 +42,17 @@ class BybitAPI
             $this->exception($e);
             throw new SDKException($e);
         }
+    }
+
+    /**
+     * @param string $webSocketChannelClassName
+     * @param array $data
+     * @return void
+     * @throws \Exception
+     */
+    public function websockets(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = 0): void
+    {
+        WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode)->execute();
     }
 
     /**
