@@ -7,7 +7,7 @@ use Carpenstar\ByBitAPI\Core\Interfaces\IFabricInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
 use Carpenstar\ByBitAPI\Core\Objects\StubQueryBag;
 
-class EndpointBuilder implements IFabricInterface
+class RestBuilder implements IFabricInterface
 {
     /**
      * @param string $className
