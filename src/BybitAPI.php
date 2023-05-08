@@ -5,7 +5,7 @@ use Carpenstar\ByBitAPI\Core\Auth\Credentials;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
-use Carpenstar\ByBitAPI\Core\Builders\EndpointBuilder;
+use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
@@ -32,10 +32,10 @@ class BybitAPI
      * @return IResponseInterface
      * @throws \Exception
      */
-    public function execute(string $endpointClassName, ?IRequestInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
+    public function rest(string $endpointClassName, ?IRequestInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
     {
         try {
-            return EndpointBuilder::make($endpointClassName, $parameters, $outputMode)->execute();
+            return RestBuilder::make($endpointClassName, $parameters, $outputMode)->execute();
         } catch (ApiException $e) {
             $this->exception($e);
         } catch (\Exception $e) {
@@ -50,9 +50,9 @@ class BybitAPI
      * @return void
      * @throws \Exception
      */
-    public function websockets(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = 0): void
+    public function websocket(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = EnumOutputMode::MODE_ENTITY, int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT): void
     {
-        WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode)->execute();
+        WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode, $wsClientTimeout)->execute();
     }
 
     /**

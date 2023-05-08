@@ -2,7 +2,6 @@
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
-use Carpenstar\ByBitAPI\Spot\Trade\GetOrder\GOQueryBag;
 
 abstract class RequestEntity implements IRequestInterface
 {
