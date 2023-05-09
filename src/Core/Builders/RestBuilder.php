@@ -22,16 +22,16 @@ class RestBuilder implements IFabricInterface
         }
 
         $endpoint = new $className();
-        $isQueryBagExist = class_exists($endpoint->getQueryBagClassName());
+        $isQueryBagExist = class_exists($endpoint->getRequestOptionsDTOClass());
          /**
          * Проверка необходимости и наличия переданного обьекта параметров запроса
          */
         if ($isQueryBagExist && empty($data)) {
-            throw new \Exception("The endpoint {$className} required {$endpoint->getQueryBagClassName()} object!");
+            throw new \Exception("The endpoint {$className} required {$endpoint->getRequestOptionsDTOClass()} object!");
         }
 
         return $endpoint
             ->setOutputMode($outputMode)
-            ->setParameters($isQueryBagExist ? $data : new StubQueryBag());
+            ->bindRequestOptions($isQueryBagExist ? $data : new StubQueryBag());
     }
 }

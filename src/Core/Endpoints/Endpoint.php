@@ -20,6 +20,8 @@ abstract class Endpoint implements IEndpointInterface
     protected int $outputMode;
     protected IRequestInterface $parameters;
 
+    abstract protected function getResponseDTOClass(): string;
+
     /**
      * @return string
      */
@@ -67,16 +69,12 @@ abstract class Endpoint implements IEndpointInterface
         return $this->url;
     }
 
-    protected function getResponseEntityClassName(): string
-    {
-        return get_class($this) . "Response";
-    }
 
     /**
      * @param IRequestInterface $parameters
      * @return $this
      */
-    public function setParameters(IRequestInterface $parameters): self
+    public function bindRequestOptions(IRequestInterface $parameters): self
     {
         $this->parameters = $parameters;
         return $this;
@@ -85,14 +83,14 @@ abstract class Endpoint implements IEndpointInterface
     /**
      * @return IRequestInterface
      */
-    public function getParameters(): IRequestInterface
+    public function getRequestOptions(): IRequestInterface
     {
         return $this->parameters;
     }
 
     public function execute(): IResponseInterface
     {
-        $params = $this->getParameters()->fetchArray();
+        $params = $this->getRequestOptions()->fetchArray();
         switch (static::HTTP_METHOD) {
             case EnumHttpMethods::GET:
                 $response = GetRequest::getInstance(static::IS_NEED_AUTHORIZATION)->exec($this->getUrl(), $params);
@@ -104,10 +102,10 @@ abstract class Endpoint implements IEndpointInterface
                 throw new \Exception("Http Method not detected");
         }
 
-        return $response->bindEntity(static::getResponseEntityClassName())->handle($this->getOutputMode());
+        return $response->bindEntity(static::getResponseDTOClass())->handle($this->getOutputMode());
     }
 
-    public function getQueryBagClassName(): string
+    public function getRequestOptionsDTOClass(): string
     {
         return get_class($this) . 'QueryBag';
     }
