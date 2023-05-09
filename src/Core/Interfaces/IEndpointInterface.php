@@ -7,7 +7,7 @@ interface IEndpointInterface
      * Получение имени класса параметров запроса для данного эндпоинта
      * @return string
      */
-    public function getQueryBagClassName(): string;
+    public function getRequestOptionsDTOClass(): string;
     /**
      * Установка режима вывода результата запроса
      * @param int $outputMode
@@ -18,6 +18,6 @@ interface IEndpointInterface
      * Требуются-ли параметры для запроса
      * @return bool
      */
-    public function setParameters(IRequestInterface $parameters): self;
+    public function bindRequestOptions(IRequestInterface $parameters): self;
     public function execute(): IResponseInterface;
 }
