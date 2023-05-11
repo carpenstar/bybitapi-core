@@ -5,7 +5,7 @@ namespace Carpenstar\ByBitAPI\Core\Enums;
 class EnumIntervals
 {
     /** 1 minute */
-    const MINUTE_1 = '1m';
+    const MINUTE1 = '1m';
 
     /** 3 minutes */
     const MINUTE_3 = '3m';
@@ -44,7 +44,7 @@ class EnumIntervals
     const MONTH_1 = '1m';
 
     const INTERVALS_LIST = [
-        self::MINUTE_1,
+        self::MINUTE1,
         self::MINUTE_3,
         self::MINUTE_5,
         self::MINUTE_15,
