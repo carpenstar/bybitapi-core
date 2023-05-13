@@ -107,6 +107,6 @@ abstract class Endpoint implements IEndpointInterface
 
     public function getRequestOptionsDTOClass(): string
     {
-        return get_class($this) . 'QueryBag';
+        return '';
     }
 }
