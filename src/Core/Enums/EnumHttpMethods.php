@@ -2,7 +2,7 @@
 
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
-class EnumHttpMethods
+interface EnumHttpMethods
 {
     const GET = "GET";
     const POST = "POST";

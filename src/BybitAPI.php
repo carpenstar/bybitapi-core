@@ -6,7 +6,7 @@ use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
 use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
-use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IOptionsInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
@@ -28,11 +28,11 @@ class BybitAPI
 
     /**
      * @param string $endpointClassName
-     * @param IRequestInterface|null $parameters
+     * @param IOptionsInterface|null $parameters
      * @return IResponseInterface
      * @throws \Exception
      */
-    public function rest(string $endpointClassName, ?IRequestInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
+    public function rest(string $endpointClassName, ?IOptionsInterface $parameters = null, ?int $outputMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
     {
         try {
             return RestBuilder::make($endpointClassName, $parameters, $outputMode)->execute();
@@ -66,7 +66,6 @@ class BybitAPI
             'code' => $e->getCode(),
             'message' => $e->getMessage()
         ]);
-        die;
     }
 }
 
