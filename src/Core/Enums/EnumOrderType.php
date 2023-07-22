@@ -1,8 +1,7 @@
 <?php
-
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
-class EnumOrderType
+interface EnumOrderType
 {
     const LIMIT = "Limit";
     const MARKET = "Market";

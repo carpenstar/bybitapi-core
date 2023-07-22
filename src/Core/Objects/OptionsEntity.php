@@ -1,9 +1,9 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
-use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IOptionsInterface;
 
-abstract class RequestEntity implements IRequestInterface
+abstract class OptionsEntity implements IOptionsInterface
 {
     protected array $requiredFields = [];
 
@@ -29,7 +29,6 @@ abstract class RequestEntity implements IRequestInterface
                         unset($entity->requiredFields[$propIndex]);
                     }
 
-
                     if (!empty($entity->requiredBetweenFields)) {
                         foreach ($entity->requiredBetweenFields as $index => $condition) {
                             if (in_array($entityProperty, $condition)) {
@@ -43,7 +42,7 @@ abstract class RequestEntity implements IRequestInterface
         });
 
         if (!empty($this->requiredFields)) {
-            throw new \Exception("Необходимо указать следующие параметры запроса: " . implode(',', $this->requiredFields));
+            throw new \Exception("You must specify the following parameters: " . implode(',', $this->requiredFields));
         }
 
         if (!empty($this->requiredBetweenFields)) {
@@ -53,7 +52,7 @@ abstract class RequestEntity implements IRequestInterface
             }
             $params = $paramsString;
 
-            throw new \Exception("Необходимо указать один из двух параметров {$paramsString}");
+            throw new \Exception("One of two parameters must be specified {$paramsString}");
         }
         return $params;
     }

@@ -1,8 +1,7 @@
 <?php
-
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
-class EnumTimeInForce
+interface EnumTimeInForce
 {
     /**
      * Good till cancelled (GTC):

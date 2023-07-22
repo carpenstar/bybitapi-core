@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
-class EnumDerivativesCategory
+interface EnumDerivativesCategory
 {
     const CATEGORY_PRODUCT_LINEAR = 'linear';
 
