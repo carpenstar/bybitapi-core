@@ -52,7 +52,8 @@ class CurlResponse implements IResponseInterface
         $this->setRawResult($jsonApiResult);
         $data = json_decode($jsonApiResult, true);
 
-        if ((int)$data["retCode"] > 0) {
+
+        if (!empty($data["retCode"]) && (int)$data["retCode"] > 0) {
             throw new ApiException($data["retMsg"], $data["retCode"]);
         }
 
