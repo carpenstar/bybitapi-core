@@ -1,8 +1,7 @@
 <?php
-
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
-class EnumIntervals
+interface EnumIntervals
 {
     /** 1 minute */
     const MINUTE1 = '1m';

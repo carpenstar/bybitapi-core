@@ -86,6 +86,7 @@ class Curl
             foreach ($this->curlHeaders as $headerKey => $headerValue) {
                 $headers[] = "$headerKey: $headerValue";
             }
+
             $this->addCurlOpt(CURLOPT_HTTPHEADER, $headers);
         }
 

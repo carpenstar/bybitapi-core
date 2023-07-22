@@ -3,9 +3,13 @@ namespace Carpenstar\ByBitAPI\Core\Endpoints;
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
+use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IRequestInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IOptionsInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\StubQueryBag;
+use Carpenstar\ByBitAPI\Core\Request\Curl;
 use Carpenstar\ByBitAPI\Core\Request\GetRequest;
 use Carpenstar\ByBitAPI\Core\Request\PostRequest;
 use Carpenstar\ByBitAPI\Spot\Trade\PlaceOrder\PlaceOrder;
@@ -18,9 +22,11 @@ abstract class Endpoint implements IEndpointInterface
     protected string $method;
     protected string $url;
     protected int $outputMode;
-    protected IRequestInterface $parameters;
+    protected IOptionsInterface $options;
 
-    abstract protected function getResponseDTOClass(): string;
+    abstract protected function getResponseClassname(): string;
+    abstract protected function getOptionsClassname(): string;
+    abstract protected function getEndpointUrl(): string;
 
     /**
      * @return string
@@ -28,16 +34,6 @@ abstract class Endpoint implements IEndpointInterface
     public function getMethod(): string
     {
         return $this->method;
-    }
-
-    /**
-     * @param string $method
-     * @return $this
-     */
-    public function setMethod(string $method): self
-    {
-        $this->method = $method;
-        return $this;
     }
 
     public function setOutputMode(int $outputMode): self
@@ -52,61 +48,45 @@ abstract class Endpoint implements IEndpointInterface
     }
 
     /**
-     * @param string $url
-     * @return Endpoint
-     */
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-
-    /**
-     * @param IRequestInterface $parameters
+     * @param IOptionsInterface $options
      * @return $this
+     * @throws ApiException
      */
-    public function bindRequestOptions(IRequestInterface $parameters): self
+    public function bindRequestOptions(?IOptionsInterface $options): self
     {
-        $this->parameters = $parameters;
+        if (get_class($options ?? new StubQueryBag()) != $this->getOptionsClassname()) {
+            throw new ApiException(get_class($options) . " must be instance of " . $this->getOptionsClassname());
+        }
+
+        $this->options = $options ?? new StubQueryBag();
         return $this;
     }
 
     /**
-     * @return IRequestInterface
+     * @return IOptionsInterface
      */
-    public function getRequestOptions(): IRequestInterface
+    public function getRequestOptions(): IOptionsInterface
     {
-        return $this->parameters;
+        return $this->options;
     }
 
     public function execute(): IResponseInterface
     {
-        $params = $this->getRequestOptions()->fetchArray();
         switch (static::HTTP_METHOD) {
             case EnumHttpMethods::GET:
-                $response = GetRequest::getInstance(static::IS_NEED_AUTHORIZATION)->exec($this->getUrl(), $params);
+                $request = GetRequest::getInstance(static::IS_NEED_AUTHORIZATION);
                 break;
             case EnumHttpMethods::POST:
-                $response = PostRequest::getInstance(static::IS_NEED_AUTHORIZATION)->exec($this->getUrl(), $params);
+                $request = PostRequest::getInstance(static::IS_NEED_AUTHORIZATION);
                 break;
             default:
                 throw new \Exception("Http Method not detected");
         }
 
-        return $response->bindEntity(static::getResponseDTOClass())->handle($this->getOutputMode());
-    }
+        $response = $request
+            ->exec($this->getEndpointUrl(), $this->getRequestOptions()->fetchArray())
+            ->bindEntity(static::getResponseClassname());
 
-    public function getRequestOptionsDTOClass(): string
-    {
-        return '';
+        return $response->handle($this->getOutputMode());
     }
 }
