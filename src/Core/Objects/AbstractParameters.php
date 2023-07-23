@@ -1,9 +1,9 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
-use Carpenstar\ByBitAPI\Core\Interfaces\IOptionsInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
 
-abstract class OptionsEntity implements IOptionsInterface
+abstract class AbstractParameters implements IParametersInterface
 {
     protected array $requiredFields = [];
 

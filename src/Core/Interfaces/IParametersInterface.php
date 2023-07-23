@@ -2,7 +2,7 @@
 
 namespace Carpenstar\ByBitAPI\Core\Interfaces;
 
-interface IOptionsInterface
+interface IParametersInterface
 {
     /**
      * Сборка указанных параметров из объекта для передачи в запрос

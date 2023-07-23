@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Interfaces;
 
-interface IResponseEntityInterface
+interface IResponseDataInterface
 {
     public function __construct(array $data);
 }

@@ -5,9 +5,9 @@ use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
 use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IOptionsInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 use Carpenstar\ByBitAPI\Core\Objects\StubQueryBag;
 use Carpenstar\ByBitAPI\Core\Request\Curl;
 use Carpenstar\ByBitAPI\Core\Request\GetRequest;
@@ -21,53 +21,34 @@ abstract class Endpoint implements IEndpointInterface
      */
     protected string $method;
     protected string $url;
-    protected int $outputMode;
-    protected IOptionsInterface $options;
+    protected int $resultMode;
+    protected IParametersInterface $requestParameters;
+
+    protected $response;
 
     abstract protected function getResponseClassname(): string;
-    abstract protected function getOptionsClassname(): string;
+    abstract protected function getRequestClassname(): string;
     abstract protected function getEndpointUrl(): string;
 
-    /**
-     * @return string
-     */
-    public function getMethod(): string
+    public function setResultMode(int $resultMode): self
     {
-        return $this->method;
-    }
-
-    public function setOutputMode(int $outputMode): self
-    {
-        $this->outputMode = $outputMode;
+        $this->resultMode = $resultMode;
         return $this;
     }
 
-    public function getOutputMode(): int
-    {
-        return $this->outputMode;
-    }
-
     /**
-     * @param IOptionsInterface $options
+     * @param IParametersInterface $options
      * @return $this
      * @throws ApiException
      */
-    public function bindRequestOptions(?IOptionsInterface $options): self
+    public function bindRequestParameters(?IParametersInterface $requestParameters): self
     {
-        if (get_class($options ?? new StubQueryBag()) != $this->getOptionsClassname()) {
-            throw new ApiException(get_class($options) . " must be instance of " . $this->getOptionsClassname());
+        if (get_class($requestParameters ?? new StubQueryBag()) != $this->getRequestClassname()) {
+            throw new ApiException(get_class($requestParameters) . " must be instance of " . $this->getRequestClassname());
         }
 
-        $this->options = $options ?? new StubQueryBag();
+        $this->requestParameters = $requestParameters ?? new StubQueryBag();
         return $this;
-    }
-
-    /**
-     * @return IOptionsInterface
-     */
-    public function getRequestOptions(): IOptionsInterface
-    {
-        return $this->options;
     }
 
     public function execute(): IResponseInterface
@@ -84,9 +65,13 @@ abstract class Endpoint implements IEndpointInterface
         }
 
         $response = $request
-            ->exec($this->getEndpointUrl(), $this->getRequestOptions()->fetchArray())
-            ->bindEntity(static::getResponseClassname());
+            ->exec(
+                $this->getEndpointUrl(),
+                $this->requestParameters->fetchArray()
+            )->bindEntity(
+                static::getResponseClassname()
+            );
 
-        return $response->handle($this->getOutputMode());
+        return $response->handle($this->resultMode);
     }
 }

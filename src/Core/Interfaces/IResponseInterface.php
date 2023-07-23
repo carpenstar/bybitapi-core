@@ -36,6 +36,6 @@ interface IResponseInterface
     /**
      * @return IResponseInterface
      */
-    public function handle(int $outputMode): IResponseInterface;
+    public function handle(int $resultMode): IResponseInterface;
 
 }
