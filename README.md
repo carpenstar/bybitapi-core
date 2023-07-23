@@ -9,16 +9,16 @@
 Любые интересующие вас вопросы относительно настройки, рассказать о найденных багах или поблагодарить (поругать) вы можете в Issue или написав на почту mighty.vlad@gmail.com (ru, en)***
 
 ## Cодержание:
-* [Что это вообще такое?]()
-* [Требования]()
-* [Установка]()
-* [Простые примеры использования]()
-* [Как использовать]()
-* [Список доступных эндпоинтов]()
-* [Как переопределять компоненты?]()
-* [Важные обьекты и словари ядра]()
-* [Дорожная карта]()
-* [Контрибьютинг]()
+* [Что это вообще такое?](https://github.com/carpenstar/bybitapi-sdk-core#что-это-вообще-такое)
+* [Требования](https://github.com/carpenstar/bybitapi-sdk-core#требования)
+* [Установка](https://github.com/carpenstar/bybitapi-sdk-core#установка)
+* [Простые примеры использования](https://github.com/carpenstar/bybitapi-sdk-core#простые-примеры-использования)
+* [Как использовать](https://github.com/carpenstar/bybitapi-sdk-core#как-использовать)
+* [Список доступных эндпоинтов](https://github.com/carpenstar/bybitapi-sdk-core#список-доступных-эндпоинтов)
+* [Как переопределять компоненты?](https://github.com/carpenstar/bybitapi-sdk-core#как-переопределять-компоненты)
+* [Важные обьекты и словари ядра](https://github.com/carpenstar/bybitapi-sdk-core#важные-обьекты-и-словари-ядра)
+* [Дорожная карта](https://github.com/carpenstar/bybitapi-sdk-core#дорожная-карта)
+* [Контрибьютинг](https://github.com/carpenstar/bybitapi-sdk-core#контрибьютинг)
 
 ## Что это вообще такое?
 
