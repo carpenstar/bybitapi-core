@@ -205,7 +205,7 @@ class CurlResponse implements IResponseInterface
      * @return IResponseInterface
      * @throws \Exception
      */
-    public function handle(int $outputMode): IResponseInterface
+    public function handle(int $resultMode): IResponseInterface
     {
         $data = $this->getBodyApiResult();
 
@@ -213,7 +213,7 @@ class CurlResponse implements IResponseInterface
 
         $data = $isResponseHasEmptyList ? [$this->entity::$rootDataKey => [$data]] : $data;
 
-        switch ($outputMode) {
+        switch ($resultMode) {
             case EnumOutputMode::MODE_JSON:
                 $collection = new StringCollection();
                 $collection->push($this->getRawResult());

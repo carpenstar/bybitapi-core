@@ -1,7 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Interfaces;
 
-use Carpenstar\ByBitAPI\Core\Objects\ResponseEntity;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
 
 interface ICollectionInterface
 {
@@ -11,7 +11,7 @@ interface ICollectionInterface
     public function push(): self;
 
     /**
-     * @return IResponseEntityInterface[]
+     * @return IResponseDataInterface[]
      */
     public function all(): array;
 
