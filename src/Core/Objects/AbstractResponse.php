@@ -1,9 +1,9 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseEntityInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseDataInterface;
 
-abstract class ResponseEntity implements IResponseEntityInterface
+abstract class AbstractResponse implements IResponseDataInterface
 {
     public static string $rootDataKey = 'list';
 
