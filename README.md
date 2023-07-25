@@ -2,7 +2,8 @@
 [![Build Status](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-core/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-core/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
-# Bybit SDK 
+# Bybit SDK
+# В текущий момент это черновик, просьба не обращать внимание :-)
 
 ***DISCLAIMER: Это неофициальный SDK, от независимого разработчика.   
 Биржа ByBit не несет ответственность за работу этого кода, так же как и разработчик SDK не несет отвественность за работоспособность АПИ ByBit
@@ -209,17 +210,102 @@ $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
       - [Order Book](https://github.com/carpenstar/bybitapi-sdk-websockets#public-channel---order-book-1)
  
 ## Как переопределять компоненты?
+### REST - запросы
 
-При необходимости, вы можете переопределить следующие компоненты sdk:
-* REST:
-- Обьект эндпоинта
-- DTO параметров запроса
-- DTO ответа от апи
-* WebSockets:
-- Обьект канала
-- Обьект параметров подписки на канал
-- Переопределить дефолтный коллбэк сообщения
-  ...
+<hr/>
+
+### Переопределение Endpoint: 
+Если вы хотите переопределить поведение или расширить класс Endpoint то у вас есть два возможных варианта действия:
+- Создать новый класс, который наследует уже существующему классу Endpoint'a (предпочтительно)
+```php
+use Carpenstar\ByBitAPI\Spot\MarketData\OrderBook\OrderBook;
+
+class CustomOrderBook extends OrderBook
+{
+  // Какой-то код
+}
+```
+- Создать новый класс, определив для него родителя - PublicEndpoint или PrivateEndpoint и имплементировать интерфейс IGetEndpointInterface или IPostEndpointInterface
+```php
+namespace Source;
+
+use Carpenstar\ByBitAPI\Core\Interfaces\IGetEndpointInterface;
+use Carpenstar\ByBitAPI\Core\Endpoints\PublicEndpoint;
+
+class CustomOrderBook extends PublicEndpoint implements IGetEndpointInterface
+{
+    // Какой-то код
+}
+```
+
+<hr/>
+
+
+### Переопределение Request-параметров эндпоинта:
+При необходимости поменять, что-то в классе передаваемых в апи параметров, вы можете создать новый класс 
+отнаследовавшись либо от существующего, либо от абстрактного класса AbstractParameters.
+
+```php
+namespace Source;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractParameters;
+
+class CustomRequestParameters extends AbstractParameters 
+{
+    // ...
+    public function setSymbol(string $symbol): self
+    {
+        $this->symbol = substr($symbol, 0, -4);
+        return $this;
+    }    
+    // ...
+}
+```
+
+
+Предпочтительнее наследоваться от уже существующих dto, потому что в противном случае, вам придется создать новый класс эндпоинта с измененной функцией `getRequestClassname()`
+```php
+use Source\CustomOrderBook;
+
+use Carpenstar\ByBitAPI\Core\Interfaces\IGetEndpointInterface;
+use Carpenstar\ByBitAPI\Core\Endpoints\PublicEndpoint;
+
+class CustomOrderBook extends PublicEndpoint implements IGetEndpointInterface 
+{
+    // ...
+    protected function getRequestClassname(): string
+    {
+        return OrderBookRequest::class;
+    }
+    // ...
+}
+```
+Чтобы подключить новый обьект параметров, нужно при вызове метода BybitAPI::rest() передать новый CustomRequestParameters в качестве второго аргумента.
+```php
+use Carpenstar\ByBitAPI\BybitAPI; 
+use Source\CustomOrderBook;
+use Source\CustomRequestParameters;
+
+$bybit = new BybitAPI("host", "apiKey", "secret");
+$bybit->rest(CustomOrderBook::class, (new CustomRequestParameters())->setSymbol("BTCUSDT"))
+```
+<hr />
+
+### Переопределение dto-ответа
+```php
+namespace Source;
+
+class CustomOrderBookResponse extends AbstractResponse
+{
+    private string $symbol;
+    
+    public function __construct(array $data)
+    {
+        $this->symbol = $data['symbol'];
+    }
+}
+```
+
+<hr/>
 
 ## Важные обьекты и словари ядра:
 
@@ -239,10 +325,12 @@ interface IResponseInterface
     public function handle(int $outputMode): IResponseInterface;
 }
 ```
+<hr/>
+
 
 ### Collections:
 
-#### ArrayCollection ::ICollectionInterface
+#### \Carpenstar\ByBitAPI\Core\Objects\Collection\ArrayCollection ::ICollectionInterface
 
 ```php
 class ArrayCollection
@@ -254,7 +342,7 @@ class ArrayCollection
 }
 ```
 
-#### EntityCollection ::ICollectionInterface
+#### \Carpenstar\ByBitAPI\Core\Objects\Collection\EntityCollection ::ICollectionInterface
 
 ```php
 class ArrayCollection
@@ -266,7 +354,7 @@ class ArrayCollection
 }
 ``` 
 
-#### StringCollections ::ICollectionInterface 
+#### \Carpenstar\ByBitAPI\Core\Objects\Collection\StringCollections ::ICollectionInterface 
 
 ```php
 class ArrayCollection
@@ -277,6 +365,8 @@ class ArrayCollection
     public function count(): int; // Количество элементов коллекции
 }
 ```
+<hr/>
+
 
 ### Helpers:
 
@@ -289,6 +379,8 @@ class DateTimeHelper
     public static function makeTimestampFromDateString(string $datetime): int // Преобразует строку даты/времени в таймштамп cо значением миллисекунд (unit64) 
 }
 ```
+<hr/>
+
 
 ### Dictionaries:
 
