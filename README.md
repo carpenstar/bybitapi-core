@@ -3,14 +3,12 @@
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/carpenstar/bybitapi-sdk-core/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
 # Bybit SDK
-# В текущий момент это черновик, просьба не обращать внимание :-)
 
 ***DISCLAIMER: Это неофициальный SDK, от независимого разработчика.   
-Биржа ByBit не несет ответственность за работу этого кода, так же как и разработчик SDK не несет отвественность за работоспособность АПИ ByBit
-Любые интересующие вас вопросы относительно настройки, рассказать о найденных багах или поблагодарить (поругать) вы можете в Issue или написав на почту mighty.vlad@gmail.com (ru, en)***
+Биржа ByBit не несет ответственность за работу этого кода, так же как и разработчик SDK не несет отвественность за работоспособность АПИ ByBit   
+Любые интересующие вас вопросы относительно настройки, информацию о найденных багах или благодарности (слова ненависти :-)) вы можете в оставить в Issues или написав на почту mighty.vlad@gmail.com (ru, en)***
 
 ## Cодержание:
-* [Что это вообще такое?](https://github.com/carpenstar/bybitapi-sdk-core#что-это-вообще-такое)
 * [Требования](https://github.com/carpenstar/bybitapi-sdk-core#требования)
 * [Установка](https://github.com/carpenstar/bybitapi-sdk-core#установка)
 * [Простые примеры использования](https://github.com/carpenstar/bybitapi-sdk-core#простые-примеры-использования)
@@ -19,11 +17,7 @@
 * [Как переопределять компоненты?](https://github.com/carpenstar/bybitapi-sdk-core#как-переопределять-компоненты)
 * [Важные обьекты и словари ядра](https://github.com/carpenstar/bybitapi-sdk-core#важные-обьекты-и-словари-ядра)
 * [Дорожная карта](https://github.com/carpenstar/bybitapi-sdk-core#дорожная-карта)
-* [Контрибьютинг](https://github.com/carpenstar/bybitapi-sdk-core#контрибьютинг)
 
-## Что это вообще такое?
-
-...
 
 ## Требования
 
@@ -53,24 +47,24 @@ composer require carpenstar/bybitapi-sdk-websockets
 * [Simple widget with tickers](https://github.com/carpenstar/bybitapi-widget-example) (Websockets - Market data)
 
 ## Как использовать:
-### Объект приложения:
-В первую очередь нужно создать основной обьект приложения `Carpenstar\ByBitAPI\BybitAPI\BybitAPI()` содержащий 
-в себе функционал способный потребоваться вам для работы с апи биржи.
-Конструктор объекта принимает три параметра: хост (например, https://api-testnet.bybit.com), ключ апи и секрет которые вы можете сгенерировать в разделе   
-https://www.bybit.com/app/user/api-management - mainnet   
-https://testnet.bybit.com/app/user/api-management - testnet   
+В первую очередь вам нужно сделать api-key и secret в следующих разделах биржи:   
+https://www.bybit.com/app/user/api-management - основная сеть (production)   
+https://testnet.bybit.com/app/user/api-management - тестовая сеть (testnet)
+
+Экземпляр приложения sdk:
+
 ```php
 use Carpenstar\ByBitAPI\BybitAPI;
 
-$api = new BybitAPI($host, $apiKey, $secret);
+
+new BybitAPI($host, $apiKey, $secret);
 ```
 
 ### Виды обращений к апи:
 
-АПИ биржи предусматривает два варианта обращений для получения данных, создания/отмены ордеров и т.д - это синхронные REST-запросы или подписка на каналы websockets.
-В SDK реализовывается оба варианта взаимодействия.   
-Ниже приведена схема вызова функции, с примером обращения.   
-Полную информацию об эндпоинтах, параметрах и результатах запроса следует смотреть на странице подключаемого пакета. 
+АПИ биржи предусматривает два варианта взаимодействия - это синхронные REST-запросы или подписка на каналы websockets.
+Ниже приведена схема вызова функции, с примером запроса.   
+Полную информацию об эндпоинтах, параметрах и результатах запроса следует смотреть на странице подключаемого пакета.
 
 ### REST-queries (пакеты: SPOT, DERIVATIVES)
 ```php
@@ -81,6 +75,8 @@ BybitAPI::rest(
     [?IRequestInterface $options = null], // (обязательность смотри в описании интерфейсе обьекта параметров эндпоинта) Обьект с набором get или post параметров, которые запрашивает эндпоинт биржи
     [?int $outputMode = EnumOutputMode::DEFAULT_MODE] // Режим вывода результата запроса к апи биржи, по умолчанию, ответ от апи преобразуется в dto.
 ): IResponseInterface;
+
+
 
 
 // REST example:
@@ -144,6 +140,8 @@ BybitAPI::websocket(
 ): void
 
 
+
+
 // Websockets example:
 
 use Carpenstar\ByBitAPI\BybitAPI;
@@ -160,9 +158,8 @@ $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
 ```
 
 ## Список доступных эндпоинтов:
-   
 
-* [SPOT](https://github.com/carpenstar/bybitapi-sdk-spot) 
+* [SPOT](https://github.com/carpenstar/bybitapi-sdk-spot)
   * MARKET DATA
     - [Best Bid Ask Price](https://github.com/carpenstar/bybitapi-sdk-spot#market-data---best-bid-ask-price)
     - [Instrument Info](https://github.com/carpenstar/bybitapi-sdk-spot#market-data---instrument-info)
@@ -175,10 +172,10 @@ $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
   * TRADE
     - [Place Order](https://github.com/carpenstar/bybitapi-sdk-spot#trade---place-order)
     - [Get Order](https://github.com/carpenstar/bybitapi-sdk-spot#trade---get-order)
-    - [Cancel Order](https://github.com/carpenstar/bybitapi-sdk-spot#trade---cancel-order)   
+    - [Cancel Order](https://github.com/carpenstar/bybitapi-sdk-spot#trade---cancel-order)
 
 
-* [DERIVATIVES](https://github.com/carpenstar/bybitapi-sdk-derivatives) 
+* [DERIVATIVES](https://github.com/carpenstar/bybitapi-sdk-derivatives)
   * MARKET DATA
     - [Funding Rate History](https://github.com/carpenstar/bybitapi-sdk-derivatives#market-data---funding-rate-history)
     - [Index Price Kline](https://github.com/carpenstar/bybitapi-sdk-derivatives#market-data---index-price-kline)
@@ -195,11 +192,11 @@ $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
       - [Get Trading Fee Rate](https://github.com/carpenstar/bybitapi-sdk-derivatives#contract---account---get-trading-fee-rate)
       - [Wallet Balance](https://github.com/carpenstar/bybitapi-sdk-derivatives#contract---account---wallet-balance)
     - ORDER
-      - [Place Order](https://github.com/carpenstar/bybitapi-sdk-derivatives#contract---account---order---place-order)   
-      
+      - [Place Order](https://github.com/carpenstar/bybitapi-sdk-derivatives#contract---account---order---place-order)
 
-* [WEBSOCKETS](https://github.com/carpenstar/bybitapi-sdk-websockets) 
-  * SPOT 
+
+* [WEBSOCKETS](https://github.com/carpenstar/bybitapi-sdk-websockets)
+  * SPOT
     - PUBLIC CHANNEL
       - [Order Book](https://github.com/carpenstar/bybitapi-sdk-websockets#public-channel---order-book)
       - [Bookticker](https://github.com/carpenstar/bybitapi-sdk-websockets#public-channel---bookticker)
@@ -208,13 +205,13 @@ $bybit->websocket(KlineChannel::class, $wsArgument, $callbackHandler);
   * DERIVATIVES
     - PUBLIC CHANNEL
       - [Order Book](https://github.com/carpenstar/bybitapi-sdk-websockets#public-channel---order-book-1)
- 
+
 ## Как переопределять компоненты?
 ### REST - запросы
 
 <hr/>
 
-### Переопределение Endpoint: 
+### Переопределение Endpoint:
 Если вы хотите переопределить поведение или расширить класс Endpoint то у вас есть два возможных варианта действия:
 - Создать новый класс, который наследует уже существующему классу Endpoint'a (предпочтительно)
 ```php
@@ -242,7 +239,7 @@ class CustomOrderBook extends PublicEndpoint implements IGetEndpointInterface
 
 
 ### Переопределение Request-параметров эндпоинта:
-При необходимости поменять, что-то в классе передаваемых в апи параметров, вы можете создать новый класс 
+При необходимости поменять, что-то в классе передаваемых в апи параметров, вы можете создать новый класс
 отнаследовавшись либо от существующего, либо от абстрактного класса AbstractParameters.
 
 ```php
@@ -326,7 +323,7 @@ interface IResponseInterface
 }
 ```
 <hr/>
-
+<br />
 
 ### Collections:
 
@@ -354,7 +351,7 @@ class ArrayCollection
 }
 ``` 
 
-#### \Carpenstar\ByBitAPI\Core\Objects\Collection\StringCollections ::ICollectionInterface 
+#### \Carpenstar\ByBitAPI\Core\Objects\Collection\StringCollections ::ICollectionInterface
 
 ```php
 class ArrayCollection
@@ -366,13 +363,15 @@ class ArrayCollection
 }
 ```
 <hr/>
-
+<br />
 
 ### Helpers:
 
 #### \Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper
 
 ```php
+namespace Carpenstar\ByBitAPI\Core\Helpers;
+
 class DateTimeHelper
 {
     public static function makeFromTimestamp(int $timestamp): \DateTime // Преобразует timestamp ответа (uint64) в обьект DateTime
@@ -380,12 +379,15 @@ class DateTimeHelper
 }
 ```
 <hr/>
-
+<br />
 
 ### Dictionaries:
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumDerivativesCategory
+Справочник содержит в себе тип дериватного ордера (линейный, инверсивный, опцион)
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumDerivativesCategory
 {
     const CATEGORY_PRODUCT_LINEAR = 'linear';
@@ -394,18 +396,26 @@ interface EnumDerivativesCategory
 
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods
+Справочник содержит тип http-запроса
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumHttpMethods
 {
     const GET = "GET";
     const POST = "POST";
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumIntervals
+Справочник содержит перечень временных интервалов свечей
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumIntervals
 {
     const MINUTE1 = '1m'; // 1 minute
@@ -423,18 +433,26 @@ interface EnumIntervals
     const MONTH_1 = '1m'; // 1 month
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumOrderCategory
+Справочник режимов выставления завершения ордера (обычный или TakeProfit/StopLoss)
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumOrderCategory
 {
     const NORMAL_ORDER = 0; // Default mode
     const TPSL_ORDER = 1; // TakeProfit/StopLoss mode
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumOrderType
+Справочник режимов исполнения ордеров: лимитный, по рынку, условный
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumOrderType
 {
     const LIMIT = "Limit";
@@ -442,9 +460,13 @@ interface EnumOrderType
     const LIMIT_MAKER = "Limit_maker";
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode
+Справочник форматов которые может выводить sdk
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumOutputMode
 {
     const MODE_ENTITY = 0;
@@ -452,18 +474,26 @@ interface EnumOutputMode
     const MODE_JSON = 2;
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumSide
+Справочник направлений ордера: продажа или покупка
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumSide
 {
     const BUY = "Buy";
     const SELL = "Sell";
 }
 ```
+<br />
 
 #### \Carpenstar\ByBitAPI\Core\Enums\EnumTimeInForce
+Справочник типа исполнения ордера
 ```php
+namespace Carpenstar\ByBitAPI\Core\Enums;
+
 interface EnumTimeInForce 
 {
     const GOOD_TILL_CANCELED = "GTC";
@@ -473,11 +503,6 @@ interface EnumTimeInForce
 ```
 
 ## Дорожная карта
-
-
-...
-
-## Контрибьютинг
 
 
 ...
