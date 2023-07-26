@@ -504,5 +504,28 @@ interface EnumTimeInForce
 
 ## Дорожная карта
 
-
-...
+* v.3.0.5 
+  - Derivatives:
+    - REST - Contract
+    - REST - Order Position
+  - Spot:
+    - Leveraged Token
+  - WebSockets:
+    - SPOT - Private Channel
+* v.3.1.0
+  - Derivatives:
+    - Unified Margin - Account
+  - Spot:
+    - Cross Margin Trade
+  - WebSockets:
+    - Derivatives - Private Channel - Contract
+* v.3.1.5
+  - WebSockets:
+    - Private Chanel - Unified Margin
+* v.3.2.0
+  - Add new Package "Account Asset"
+  - Account Asset:
+    - Transfer Endpoint
+* v.3.2.5
+  - Account Asset:
+    - Withdraw And Deposit Endpoints
