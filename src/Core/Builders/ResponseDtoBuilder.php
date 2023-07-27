@@ -3,9 +3,9 @@ namespace Carpenstar\ByBitAPI\Core\Builders;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IFabricInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseDataInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 
-class ResponseBuilder implements IFabricInterface
+class ResponseDtoBuilder implements IFabricInterface
 {
     /**
      * @param string $className
@@ -16,7 +16,7 @@ class ResponseBuilder implements IFabricInterface
     public static function make(string $className, ?array $data = null): IResponseDataInterface
     {
         if (!in_array(IResponseDataInterface::class, class_implements($className))) {
-            throw new \Exception("The endpoint {$className} must implement the interface " . IResponseInterface::class . "!");
+            throw new \Exception("That DTO {$className} must be implements the interface " . IResponseHandlerInterface::class . "!");
         }
 
         return new $className($data);

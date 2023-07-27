@@ -3,8 +3,8 @@ namespace Carpenstar\ByBitAPI\Core\Request;
 
 use Carpenstar\ByBitAPI\Core\Auth\Credentials;
 use Carpenstar\ByBitAPI\Core\Auth\SignGenerator;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
-use Carpenstar\ByBitAPI\Core\Response\CurlResponse;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
+use Carpenstar\ByBitAPI\Core\Response\CurlResponseHandler;
 
 class Curl
 {
@@ -74,10 +74,7 @@ class Curl
         return $this;
     }
 
-    /**
-     * @return IResponseInterface
-     */
-    protected function execute(): IResponseInterface
+    protected function execute(): string
     {
         $curl = curl_init();
 
@@ -96,7 +93,7 @@ class Curl
             }
         }
 
-        $response = new CurlResponse(curl_exec($curl));
+        $response = curl_exec($curl);
 
         curl_close($curl);
 

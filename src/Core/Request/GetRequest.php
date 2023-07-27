@@ -3,7 +3,7 @@ namespace Carpenstar\ByBitAPI\Core\Request;
 
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 
 class GetRequest extends Curl
 {
@@ -11,9 +11,9 @@ class GetRequest extends Curl
     /**
      * @param string $endpoint
      * @param array $queryParams
-     * @return IResponseInterface
+     * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $queryParams): IResponseInterface
+    public function exec(string $endpoint, array $queryParams): string
     {
         $queryString = $this->buildRequestParams($queryParams);
 

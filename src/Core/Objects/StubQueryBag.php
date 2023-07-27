@@ -3,7 +3,7 @@ namespace Carpenstar\ByBitAPI\Core\Objects;
 
 class StubQueryBag extends AbstractParameters
 {
-    public function fetchArray(): array
+    public function array(): array
     {
         return [];
     }

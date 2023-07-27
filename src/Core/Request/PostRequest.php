@@ -2,16 +2,16 @@
 namespace Carpenstar\ByBitAPI\Core\Request;
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 
 class PostRequest extends Curl
 {
     /**
      * @param string $endpoint
      * @param array $params
-     * @return IResponseInterface
+     * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $params): IResponseInterface
+    public function exec(string $endpoint, array $params): string
     {
         $bodyParams = $this->buildRequestParams($params);
 
