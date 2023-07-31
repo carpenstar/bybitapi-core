@@ -6,8 +6,8 @@ use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
 use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
+use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
@@ -29,13 +29,14 @@ class BybitAPI
     /**
      * @param string $endpointClassName
      * @param IParametersInterface|null $parameters
-     * @return IResponseInterface
-     * @throws \Exception
+     * @param int|null $resultMode
+     * @return ICurlResponseDtoInterface
+     * @throws SDKException
      */
-    public function rest(string $endpointClassName, ?IParametersInterface $parameters = null, ?int $resultMode = EnumOutputMode::DEFAULT_MODE): IResponseInterface
+    public function rest(string $endpointClassName, ?IParametersInterface $parameters = null, ?int $mode = EnumOutputMode::DEFAULT_MODE): ICurlResponseDtoInterface
     {
         try {
-            return RestBuilder::make($endpointClassName, $parameters, $resultMode)->execute();
+            return RestBuilder::make($endpointClassName, $parameters)->execute($mode);
         } catch (ApiException $e) {
             $this->exception($e);
         } catch (\Exception $e) {

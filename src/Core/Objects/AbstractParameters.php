@@ -12,7 +12,7 @@ abstract class AbstractParameters implements IParametersInterface
     /**
      * @return array
      */
-    public function fetchArray(): array
+    public function array(): array
     {
         $entity = $this;
         $entityMethods = get_class_methods($this);

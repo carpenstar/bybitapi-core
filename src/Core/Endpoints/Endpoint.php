@@ -1,18 +1,18 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Endpoints;
 
+use Carpenstar\ByBitAPI\Core\Builders\ResponseHandlerBuilder;
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
-use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
 use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
+use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
-use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;
+use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 use Carpenstar\ByBitAPI\Core\Objects\StubQueryBag;
 use Carpenstar\ByBitAPI\Core\Request\Curl;
 use Carpenstar\ByBitAPI\Core\Request\GetRequest;
 use Carpenstar\ByBitAPI\Core\Request\PostRequest;
-use Carpenstar\ByBitAPI\Spot\Trade\PlaceOrder\PlaceOrder;
+use Carpenstar\ByBitAPI\Core\Response\CurlResponseHandler;
 
 abstract class Endpoint implements IEndpointInterface
 {
@@ -21,23 +21,24 @@ abstract class Endpoint implements IEndpointInterface
      */
     protected string $method;
     protected string $url;
-    protected int $resultMode;
-    protected IParametersInterface $requestParameters;
+    protected IParametersInterface $parameters;
 
-    protected $response;
+    protected IResponseHandlerInterface $response;
 
     abstract protected function getResponseClassname(): string;
     abstract protected function getRequestClassname(): string;
     abstract protected function getEndpointUrl(): string;
 
-    public function setResultMode(int $resultMode): self
+    /**
+     * @return string
+     */
+    protected function getResponseHandlerClassname(): string
     {
-        $this->resultMode = $resultMode;
-        return $this;
+        return CurlResponseHandler::class;
     }
 
     /**
-     * @param IParametersInterface $options
+     * @param IParametersInterface|null $requestParameters
      * @return $this
      * @throws ApiException
      */
@@ -47,31 +48,40 @@ abstract class Endpoint implements IEndpointInterface
             throw new ApiException(get_class($requestParameters) . " must be instance of " . $this->getRequestClassname());
         }
 
-        $this->requestParameters = $requestParameters ?? new StubQueryBag();
+        $this->parameters = $requestParameters ?? new StubQueryBag();
         return $this;
     }
 
-    public function execute(): IResponseInterface
+    /**
+     * @return Curl
+     * @throws \Exception
+     */
+    protected function makeRequestObject(): Curl
     {
         switch (static::HTTP_METHOD) {
             case EnumHttpMethods::GET:
-                $request = GetRequest::getInstance(static::IS_NEED_AUTHORIZATION);
-                break;
+                return GetRequest::getInstance(static::IS_NEED_AUTHORIZATION);
             case EnumHttpMethods::POST:
-                $request = PostRequest::getInstance(static::IS_NEED_AUTHORIZATION);
-                break;
+                return PostRequest::getInstance(static::IS_NEED_AUTHORIZATION);
             default:
                 throw new \Exception("Http Method not detected");
         }
+    }
 
-        $response = $request
-            ->exec(
-                $this->getEndpointUrl(),
-                $this->requestParameters->fetchArray()
-            )->bindEntity(
-                static::getResponseClassname()
-            );
-
-        return $response->handle($this->resultMode);
+    /**
+     * @param int $mode
+     * @return ICurlResponseDtoInterface
+     * @throws \Exception
+     */
+    public function execute(int $mode): ICurlResponseDtoInterface
+    {
+        return ResponseHandlerBuilder::make(
+            $this->makeRequestObject()->exec(
+                $this->getEndpointUrl(), $this->parameters->array()
+            ),
+            $this->getResponseHandlerClassname(),
+            $this->getResponseClassname(),
+            $mode
+        );
     }
 }

@@ -15,17 +15,12 @@ class RestBuilder implements IFabricInterface
      * @return IEndpointInterface
      * @throws \Exception
      */
-    public static function make(string $className, ?IParametersInterface $options = null, ?int $resultMode = EnumOutputMode::DEFAULT_MODE): IEndpointInterface
+    public static function make(string $className, ?IParametersInterface $parameters = null): IEndpointInterface
     {
         if (!in_array(IEndpointInterface::class, class_implements($className))) {
-            throw new \Exception("The endpoint {$className} must be implement the interface " . IEndpointInterface::class . "!");
+            throw new \Exception("That endpoint {$className} must be implement the interface " . IEndpointInterface::class . "!");
         }
 
-        /** @var Endpoint $endpoint */
-        $endpoint = new $className();
-
-        return $endpoint
-            ->setResultMode($resultMode)
-            ->bindRequestParameters($options);
+        return (new $className())->bindRequestParameters($parameters);
     }
 }
