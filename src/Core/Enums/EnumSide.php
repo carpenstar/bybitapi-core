@@ -3,6 +3,11 @@ namespace Carpenstar\ByBitAPI\Core\Enums;
 
 interface EnumSide
 {
-    const BUY = "Buy";
-    const SELL = "Sell";
+    public const BUY = "Buy";
+    public const SELL = "Sell";
+
+    public const ORDER_SIDE_LIST = [
+        self::BUY,
+        self::SELL
+    ];
 }

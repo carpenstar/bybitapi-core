@@ -7,7 +7,6 @@ use Carpenstar\ByBitAPI\Core\Exceptions\ApiException;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 use Carpenstar\ByBitAPI\Core\Objects\StubQueryBag;
 use Carpenstar\ByBitAPI\Core\Request\Curl;
 use Carpenstar\ByBitAPI\Core\Request\GetRequest;
@@ -22,8 +21,6 @@ abstract class Endpoint implements IEndpointInterface
     protected string $method;
     protected string $url;
     protected IParametersInterface $parameters;
-
-    protected IResponseHandlerInterface $response;
 
     abstract protected function getResponseClassname(): string;
     abstract protected function getRequestClassname(): string;

@@ -21,7 +21,7 @@ class CurlResponseHandler implements IResponseHandlerInterface
      * @param string $className
      * @return void
      */
-    public function bindEntity(string $className): self
+    public function bindDto(string $className): self
     {
         $this->entity = $className;
         return $this;
@@ -35,19 +35,34 @@ class CurlResponseHandler implements IResponseHandlerInterface
     {
         $data = json_decode($apiData, true);
 
+        // If return NULL, then service blocked that ip, try again after 10 minutes
+        if (is_null($data)) {
+            $data = [
+                'time' => time(),
+                'retCode' => 400,
+                'retMsg' => 'Forbidden, try again later',
+                'result' => ['list' =>[]],
+                'retExtInfo' => []
+            ];
+        }
+
         if (!empty($data["retCode"]) && (int)$data["retCode"] > 0) {
             throw new ApiException($data["retMsg"], $data["retCode"]);
         }
 
-        $time = $data['time'];
-        $code = $data['retCode'];
-        $msg = $data['retMsg'];
-        $extMsg = $data['retExtInfo'];
+        $time = $data['time'] ?? 0;
+        $code = $data['retCode'] ?? 0;
+        $msg = $data['retMsg'] ?? '';
+        $extMsg = $data['retExtInfo'] ?? [];
+        $cursor = $data['result']['nextPageCursor'] ?? '';
+
 
         if (isset($data['result'][$this->entity::$rootDataKey])) {
             $data = $data['result'][$this->entity::$rootDataKey];
         } elseif (!empty($data['result'])) {
             $data = [$data['result']];
+        } elseif (empty($data['result'])) {
+            $data = [];
         }
 
         switch ($mode) {
@@ -77,6 +92,7 @@ class CurlResponseHandler implements IResponseHandlerInterface
             ->setReturnCode($code)
             ->setReturnMessage($msg)
             ->setReturnExtendedInfo($extMsg)
+            ->setNextPageCursor($cursor)
             ->setBody($collection);
     }
 }
