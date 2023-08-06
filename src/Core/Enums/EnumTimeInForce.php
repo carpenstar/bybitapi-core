@@ -13,7 +13,8 @@ interface EnumTimeInForce
      * GTC подходит для трейдеров, которые готовы дождаться завершения всех контрактов по указанной цене и
      * могут гибко отменить незаключенные контракты в любое время.
      */
-    const GOOD_TILL_CANCELED = "GTC";
+    const GOOD_TILL_CANCELED_SHORT = "GTC";
+    public const GOOD_TILL_CANCELED_FULL = "GoodTillCancel";
 
     /**
      * Fill or Kill (FOK):
@@ -26,7 +27,8 @@ interface EnumTimeInForce
      * Эта стратегия исполнения чаще используется скальпирующими трейдерами или внутридневными трейдерами,
      * ищущими краткосрочные рыночные возможности.
      */
-    const FILL_OR_KILL = "FOK";
+    public const FILL_OR_KILL_SHORT = "FOK";
+    public const FILL_OR_KILL_FULL = "FillOrKlii";
 
     /**
      * Immediate or Cancel (IOC):
@@ -40,5 +42,18 @@ interface EnumTimeInForce
      * IOC обычно используется, чтобы избежать исполнения крупных ордеров по цене, которая отличается от идеальной.
      * С этим набором контракты, которые не торгуются по указанной цене, будут отменены.
      */
-    const IMMEDIATE_OR_CANCEL = "IOC";
+    public const IMMEDIATE_OR_CANCEL_SHORT = "IOC";
+    public const IMMEDIATE_OR_CANCEL_FULL = "ImmediateOrCancel";
+
+    public const TIME_IN_FORCE_LIST_FULL = [
+        self::GOOD_TILL_CANCELED_FULL,
+        self::IMMEDIATE_OR_CANCEL_FULL,
+        self::IMMEDIATE_OR_CANCEL_FULL
+    ];
+
+    public const TIME_IN_FORCE_LIST_SHORT = [
+        self::GOOD_TILL_CANCELED_SHORT,
+        self::IMMEDIATE_OR_CANCEL_SHORT,
+        self::FILL_OR_KILL_SHORT
+    ];
 }

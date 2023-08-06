@@ -7,7 +7,7 @@ interface IResponseHandlerInterface
      * @param string $className
      * @return mixed
      */
-    public function bindEntity(string $className);
+    public function bindDto(string $className);
     /**
      * @return IResponseHandlerInterface
      */

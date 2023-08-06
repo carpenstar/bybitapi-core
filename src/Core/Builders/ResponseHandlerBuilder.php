@@ -32,6 +32,6 @@ class ResponseHandlerBuilder implements IFabricInterface
          */
         $curlResponse = new $curlResponse();
 
-        return $curlResponse->bindEntity($dto)->handle($data, $mode);
+        return $curlResponse->bindDto($dto)->handle($data, $mode);
     }
 }

@@ -26,6 +26,8 @@ class CurlResponseDto implements ICurlResponseDtoInterface
      */
     private array $retExtInfo = [];
 
+    private string $nextPageCursor;
+
     private ICollectionInterface $body;
 
 
@@ -117,5 +119,16 @@ class CurlResponseDto implements ICurlResponseDtoInterface
     public function getBody(): ICollectionInterface
     {
         return $this->body;
+    }
+
+    public function setNextPageCursor(string $cursor): self
+    {
+        $this->nextPageCursor = $cursor;
+        return $this;
+    }
+
+    public function getNextPageCursor(): ?string
+    {
+        return $this->nextPageCursor;
     }
 }
