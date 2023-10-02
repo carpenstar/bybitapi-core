@@ -9,8 +9,8 @@ use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
-use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
-use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
+use Carpenstar\ByBitAPI\WebSockets\Objects\Channels\Interfaces\IChannelHandlerInterface;
+use Carpenstar\ByBitAPI\WebSockets\Objects\WebSockets\Interfaces\IWebSocketArgumentInterface;
 
 class BybitAPI
 {
@@ -63,10 +63,10 @@ class BybitAPI
      */
     protected function exception(\Exception $e)
     {
-        echo json_encode([
+       /* echo json_encode([
             'code' => $e->getCode(),
             'message' => $e->getMessage()
-        ]);
+        ]); */
     }
 }
 

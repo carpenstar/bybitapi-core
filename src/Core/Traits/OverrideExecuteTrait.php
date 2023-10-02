@@ -1,5 +1,5 @@
 <?php
-namespace Carpenstar\ByBitAPI\Core\Overrides\Spot;
+namespace Carpenstar\ByBitAPI\Core\Traits;
 
 use Carpenstar\ByBitAPI\Core\Builders\ResponseHandlerBuilder;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;

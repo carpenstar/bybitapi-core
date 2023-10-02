@@ -1,6 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
+use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
 
 abstract class AbstractParameters implements IParametersInterface
@@ -22,7 +23,14 @@ abstract class AbstractParameters implements IParametersInterface
             if (substr($method, 0, 3) == 'get') {
                 $entityProperty = lcfirst(substr($method, 3));
                 if (isset($entity->$entityProperty)) {
-                    $params[$entityProperty] = (string)$entity->$method();
+
+                    if ($entity->$method() instanceof \DateTime) {
+                        $ePropertyVal = DateTimeHelper::makeTimestampFromDateString($entity->$method()->format("Y-m-d H:i:s"));
+                    } else {
+                        $ePropertyVal = (string)$entity->$method();
+                    }
+
+                    $params[$entityProperty] = $ePropertyVal;
 
                     $propIndex = array_search($entityProperty, $entity->requiredFields, true);
                     if($propIndex > -1 && !empty($params[$entityProperty])) {
