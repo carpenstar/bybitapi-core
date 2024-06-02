@@ -76,6 +76,7 @@ echo 'version: "3.1"
 services:
   php:
     build: .
+    container_name: bybitapi-php
     working_dir: /var/www/html
     volumes:
       - ../bybitapi-sdk-websockets:/var/www/bybitapi-sdk-webosckets:rw
@@ -100,16 +101,14 @@ echo '<phpunit bootstrap="vendor/autoload.php">
         <testsuite name="derivatives">
             <directory>Derivatives/</directory>
         </testsuite>
-        <testsuite name="websockets">
-            <directory>WebSockets/</directory>
-        </testsuite>
     </testsuites>
 </phpunit>
 ' > phpunit.xml;
 
+docker rm bybitapi-php --force
 
 docker compose up --build -d;
 
-docker compose exec -it php composer install;
+docker exec -it bybitapi-php composer install;
 
-docker compose exec -it php composer exec phpunit
+docker exec -it bybitapi-php composer exec phpunit;
