@@ -11,7 +11,7 @@ class Curl
     /**
      * @var string $host
      */
-    protected static $host;
+    protected static $host = 'https://api-testnet.bybit.com';
 
     /**
      * @var string $apiKey
@@ -43,13 +43,14 @@ class Curl
 
     public static function getInstance(bool $isNeedAuthorization)
     {
-        if (empty(self::$instance[static::class])) {
-            self::$instance[static::class] = new static();
+        $indexKey = static::class.md5(Credentials::getHost().Credentials::getApiKey().Credentials::getSecret());
+        if (empty(self::$instance[$indexKey])) {
+            self::$instance[$indexKey] = new static();
         }
-        self::$instance[static::class]->addCurlOpt(CURLOPT_RETURNTRANSFER, true);
-        self::$instance[static::class]->addCurlHeader('Content-Type', 'application/json');
-        self::$instance[static::class]->isNeedAuthorization = $isNeedAuthorization;
-        return self::$instance[static::class];
+        self::$instance[$indexKey]->addCurlOpt(CURLOPT_RETURNTRANSFER, true);
+        self::$instance[$indexKey]->addCurlHeader('Content-Type', 'application/json');
+        self::$instance[$indexKey]->isNeedAuthorization = $isNeedAuthorization;
+        return self::$instance[$indexKey];
     }
 
     /**
@@ -74,7 +75,7 @@ class Curl
         return $this;
     }
 
-    protected function execute(): string
+    protected function execute(): array
     {
         $curl = curl_init();
 
@@ -93,7 +94,7 @@ class Curl
             }
         }
 
-        $response = curl_exec($curl);
+        $response = json_decode(curl_exec($curl), true) ?? [];
 
         curl_close($curl);
 
