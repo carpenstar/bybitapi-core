@@ -3,9 +3,9 @@ namespace Carpenstar\ByBitAPI\Core\Response;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\ICollectionInterface;
-use Carpenstar\ByBitAPI\Core\Interfaces\ICurlResponseDtoInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\ISuccessCurlResponseDtoInterface;
 
-class CurlResponseDto implements ICurlResponseDtoInterface
+class SuccessCurlResponseDto implements ISuccessCurlResponseDtoInterface
 {
     /**
      * @var \DateTime $time
@@ -33,7 +33,7 @@ class CurlResponseDto implements ICurlResponseDtoInterface
 
     /**
      * @param int $code
-     * @return CurlResponseDto
+     * @return SuccessCurlResponseDto
      */
     public function setReturnCode(int $code): self
     {
@@ -51,7 +51,7 @@ class CurlResponseDto implements ICurlResponseDtoInterface
 
     /**
      * @param string $message
-     * @return CurlResponseDto
+     * @return SuccessCurlResponseDto
      */
     public function setReturnMessage(string $message): self
     {
@@ -69,7 +69,7 @@ class CurlResponseDto implements ICurlResponseDtoInterface
 
     /**
      * @param array $extInfo
-     * @return CurlResponseDto
+     * @return SuccessCurlResponseDto
      */
     public function setReturnExtendedInfo(array $extInfo): self
     {
@@ -87,7 +87,7 @@ class CurlResponseDto implements ICurlResponseDtoInterface
 
     /**
      * @param int $time
-     * @return CurlResponseDto
+     * @return SuccessCurlResponseDto
      */
     public function setTime(int $time): self
     {
@@ -116,7 +116,7 @@ class CurlResponseDto implements ICurlResponseDtoInterface
     /**
      * @return array|null
      */
-    public function getBody(): ICollectionInterface
+    public function getResult(): ICollectionInterface
     {
         return $this->body;
     }
