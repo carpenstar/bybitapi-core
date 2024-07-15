@@ -1,10 +1,10 @@
 #!/bin/bash
 
-mkdir bybitapi-sdk-dev bybitapi-sdk-core bybitapi-sdk-spot bybitapi-sdk-derivatives bybitapi-sdk-websockets;
+mkdir bybitapi-sdk-dev bybitapi-sdk-core bybitapi-sdk-spot bybitapi-sdk-derivatives bybitapi-sdk-websockets bybitapi-sdk-v5-market;
 
 echo "Create bybitapi-sdk-core repository \n";
 cd bybitapi-sdk-core;
-git init && git remote add origin git@github.com:carpenstar/bybitapi-sdk-core.git && git fetch origin && git checkout master;
+git init && git remote add origin git@github.com:carpenstar/bybitapi-sdk-core.git && git fetch origin && git checkout 5.0.0;
 
 echo "Create bybitapi-sdk-spot repository \n";
 cd ../bybitapi-sdk-spot;
@@ -18,6 +18,10 @@ echo "Create bybitapi-sdk-websockets repository \n";
 cd ../bybitapi-sdk-websockets;
 git init && git remote add origin git@github.com:carpenstar/bybitapi-sdk-websockets.git && git fetch origin && git checkout master;
 
+echo "Create bybitapi-sdk-v5-market repository \n";
+cd ../bybitapi-sdk-v5-market;
+git init && git remote add origin git@github.com:carpenstar/bybitapi-sdk-v5-market.git && git fetch origin && git checkout master;
+
 
 echo "Create bybitapi-sdk-dev environment directory \n";
 cd ../bybitapi-sdk-dev;
@@ -26,6 +30,7 @@ echo "Create symlinks \n";
 ln -s ../bybitapi-sdk-websockets/src/WebSockets ./WebSockets;
 ln -s ../bybitapi-sdk-spot/src/Spot ./Spot;
 ln -s ../bybitapi-sdk-derivatives/src/Derivatives ./Derivatives;
+ln -s ../bybitapi-sdk-v5-market/src/Market  ./Market;
 ln -s ../bybitapi-sdk-core/src/Core  ./Core;
 ln -s ../bybitapi-sdk-core/src/BybitAPI.php  ./BybitAPI.php;
 
@@ -83,6 +88,7 @@ services:
       - ../bybitapi-sdk-spot:/var/www/bybitapi-sdk-spot:rw
       - ../bybitapi-sdk-derivatives:/var/www/bybitapi-sdk-derivatives:rw
       - ../bybitapi-sdk-core:/var/www/bybitapi-sdk-core:rw
+      - ../bybitapi-sdk-v5-market:/var/www/bybitapi-sdk-v5-market:rw
       - ./:/var/www/html:rw
 ' > docker-compose.yml;
 
@@ -92,14 +98,8 @@ touch phpunit.xml;
 
 echo '<phpunit bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="core">
-            <directory>Core/</directory>
-        </testsuite>
-        <testsuite name="spot">
-            <directory>Spot/</directory>
-        </testsuite>
-        <testsuite name="derivatives">
-            <directory>Derivatives/</directory>
+        <testsuite name="market">
+            <directory>Market/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

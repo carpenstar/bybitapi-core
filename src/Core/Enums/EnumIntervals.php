@@ -4,43 +4,43 @@ namespace Carpenstar\ByBitAPI\Core\Enums;
 interface EnumIntervals
 {
     /** 1 minute */
-    const MINUTE1 = '1m';
+    const MINUTE1 = '1';
 
     /** 3 minutes */
-    const MINUTE_3 = '3m';
+    const MINUTE_3 = '3';
 
     /** 5 minutes */
-    const MINUTE_5 = '5m';
+    const MINUTE_5 = '5';
 
     /** 15 minutes */
-    const MINUTE_15 = '15m';
+    const MINUTE_15 = '15';
 
     /** 30 minutes */
-    const MINUTE_30 = '30m';
+    const MINUTE_30 = '30';
 
     /** 1 hour */
-    const HOUR_1 = '1h';
+    const HOUR_1 = '60';
 
     /** 2 hours */
-    const HOUR_2 = '2h';
+    const HOUR_2 = '120';
 
     /** 4 hours */
-    const HOUR_4 = '4h';
+    const HOUR_4 = '240';
 
     /** 6 hours */
-    const HOUR_6 = '6h';
+    const HOUR_6 = '360';
 
     /** 12 hours */
-    const HOUR_12 = '12h';
+    const HOUR_12 = '720';
 
     /** 1 day */
-    const DAY_1 = '1d';
+    const DAY_1 = 'D';
 
     /** 1 week */
-    const WEEK_1 = '1w';
+    const WEEK_1 = 'W';
 
     /** 1 month */
-    const MONTH_1 = '1m';
+    const MONTH_1 = 'M';
 
     const INTERVALS_LIST = [
         self::MINUTE1,

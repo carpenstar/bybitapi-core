@@ -11,7 +11,7 @@ class PostRequest extends Curl
      * @param array $params
      * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $params): string
+    public function exec(string $endpoint, array $params): array
     {
         $bodyParams = $this->buildRequestParams($params);
 

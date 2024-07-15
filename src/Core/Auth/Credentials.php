@@ -5,9 +5,9 @@ class Credentials
 {
     private static string $host;
 
-    private static string $apiKey;
+    private static string $apiKey = '';
 
-    private static string $secret;
+    private static string $secret = '';
 
     public static function setHost(string $host): void
     {

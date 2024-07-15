@@ -1,6 +1,7 @@
 <?php
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
+use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
 
@@ -33,7 +34,8 @@ abstract class AbstractParameters implements IParametersInterface
                     $params[$entityProperty] = $ePropertyVal;
 
                     $propIndex = array_search($entityProperty, $entity->requiredFields, true);
-                    if($propIndex > -1 && !empty($params[$entityProperty])) {
+
+                    if($propIndex > -1) {
                         unset($entity->requiredFields[$propIndex]);
                     }
 
@@ -50,7 +52,7 @@ abstract class AbstractParameters implements IParametersInterface
         });
 
         if (!empty($this->requiredFields)) {
-            throw new \Exception("You must specify the following parameters: " . implode(',', $this->requiredFields));
+            throw new SDKException(sprintf(SDKException::EXCEPTION_REQUIRED_FIELD_TEXT, implode(',', $this->requiredFields)));
         }
 
         if (!empty($this->requiredBetweenFields)) {
@@ -60,7 +62,7 @@ abstract class AbstractParameters implements IParametersInterface
             }
             $params = $paramsString;
 
-            throw new \Exception("One of two parameters must be specified {$paramsString}");
+            throw new SDKException(sprintf(SDKException::EXCEPTION_REQUIRED_SPECIFY_BETWEEN_FIELDS, $paramsString));
         }
         return $params;
     }

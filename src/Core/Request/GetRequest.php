@@ -13,7 +13,7 @@ class GetRequest extends Curl
      * @param array $queryParams
      * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $queryParams): string
+    public function exec(string $endpoint, array $queryParams): array
     {
         $queryString = $this->buildRequestParams($queryParams);
 
