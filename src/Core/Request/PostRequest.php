@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Request;
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
@@ -11,11 +12,11 @@ class PostRequest extends Curl
      * @param array $params
      * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $params): array
+    public function execute(string $endpoint, array $params): array
     {
         $bodyParams = $this->buildRequestParams($params);
 
-        $this->addCurlOpt(CURLOPT_URL, static::$host . $endpoint)
+        $this->addCurlOpt(CURLOPT_URL, "{$this->credentials->getHost()}{$endpoint}")
              ->addCurlOpt(CURLOPT_CUSTOMREQUEST, EnumHttpMethods::POST)
              ->addCurlOpt(CURLOPT_ENCODING, '')
              ->addCurlOpt(CURLOPT_MAXREDIRS, 10)
@@ -24,11 +25,9 @@ class PostRequest extends Curl
              ->addCurlOpt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1)
              ->addCurlOpt(CURLOPT_POSTFIELDS, $bodyParams);
 
-        if ($this->isNeedAuthorization) {
-            $this->auth($bodyParams);
-        }
+        $this->auth($bodyParams);
 
-        return $this->execute();
+        return $this->query();
     }
 
     /**

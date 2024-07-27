@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Objects\Collection;
 
 class StringCollection extends AbstractCollection

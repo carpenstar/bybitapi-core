@@ -1,41 +1,45 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Auth;
 
 class Credentials
 {
-    private static string $host;
+    private string $host;
 
-    private static string $apiKey = '';
+    private string $apiKey = '';
 
-    private static string $secret = '';
+    private string $secret = '';
 
-    public static function setHost(string $host): void
+    public function setHost(string $host): self
     {
-        static::$host = $host;
+        $this->host = $host;
+        return $this;
     }
 
-    public static function getHost(): string
+    public function getHost(): string
     {
-        return static::$host;
+        return $this->host;
     }
 
-    public static function setApiKey(string $apiKey): void
+    public function setApiKey(string $apiKey): self
     {
-        static::$apiKey = $apiKey;
+        $this->apiKey = $apiKey;
+        return $this;
     }
 
-    public static function getApiKey(): string
+    public function getApiKey(): string
     {
-        return static::$apiKey;
+        return $this->apiKey;
     }
 
-    public static function setSecret(string $secret): void
+    public function setSecret(string $secret): self
     {
-        static::$secret = $secret;
+        $this->secret = $secret;
+        return $this;
     }
 
-    public static function getSecret(): string
+    public function getSecret(): string
     {
-        return static::$secret;
+        return $this->secret;
     }
 }

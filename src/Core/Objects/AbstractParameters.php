@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
@@ -51,19 +52,6 @@ abstract class AbstractParameters implements IParametersInterface
             }
         });
 
-        if (!empty($this->requiredFields)) {
-            throw new SDKException(sprintf(SDKException::EXCEPTION_REQUIRED_FIELD_TEXT, implode(',', $this->requiredFields)));
-        }
-
-        if (!empty($this->requiredBetweenFields)) {
-            $paramsString = '';
-            foreach ($this->requiredBetweenFields as $fieldArray) {
-                $paramsString .= implode(' or ', $fieldArray);
-            }
-            $params = $paramsString;
-
-            throw new SDKException(sprintf(SDKException::EXCEPTION_REQUIRED_SPECIFY_BETWEEN_FIELDS, $paramsString));
-        }
         return $params;
     }
 

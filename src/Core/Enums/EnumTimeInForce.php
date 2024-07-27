@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Enums;
 
 interface EnumTimeInForce
@@ -13,7 +14,7 @@ interface EnumTimeInForce
      * GTC подходит для трейдеров, которые готовы дождаться завершения всех контрактов по указанной цене и
      * могут гибко отменить незаключенные контракты в любое время.
      */
-    const GOOD_TILL_CANCELED_SHORT = "GTC";
+    public const GOOD_TILL_CANCELED_SHORT = "GTC";
     public const GOOD_TILL_CANCELED_FULL = "GoodTillCancel";
 
     /**

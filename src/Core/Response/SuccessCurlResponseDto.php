@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Response;
 
 use Carpenstar\ByBitAPI\Core\Helpers\DateTimeHelper;

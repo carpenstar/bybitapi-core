@@ -4,6 +4,6 @@ namespace Carpenstar\ByBitAPI\Core\Enums;
 
 interface EnumHttpMethods
 {
-    const GET = "GET";
-    const POST = "POST";
+    public const GET = "GET";
+    public const POST = "POST";
 }
