@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Objects;
 
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;

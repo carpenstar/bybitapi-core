@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Builders;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IFabricInterface;

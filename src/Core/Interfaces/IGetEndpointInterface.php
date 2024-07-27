@@ -6,5 +6,5 @@ use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
 
 interface IGetEndpointInterface
 {
-    const HTTP_METHOD = EnumHttpMethods::GET;
+    public const HTTP_METHOD = EnumHttpMethods::GET;
 }

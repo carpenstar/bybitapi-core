@@ -1,6 +1,6 @@
 <?php
-namespace Carpenstar\ByBitAPI\Core\Response;
 
+namespace Carpenstar\ByBitAPI\Core\Response;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;

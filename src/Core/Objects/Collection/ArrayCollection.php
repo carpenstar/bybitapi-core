@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Objects\Collection;
 
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseDataInterface;

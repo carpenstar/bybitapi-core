@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI\Core\Interfaces;
 
 use Carpenstar\ByBitAPI\Core\Objects\AbstractResponse;

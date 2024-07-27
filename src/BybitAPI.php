@@ -1,4 +1,5 @@
 <?php
+
 namespace Carpenstar\ByBitAPI;
 
 use Carpenstar\ByBitAPI\Core\Auth\Credentials;
@@ -16,6 +17,8 @@ use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
 
 class BybitAPI
 {
+    protected Credentials $credentials;
+
     /**
      * @param string $host
      * @param string $apiKey
@@ -24,9 +27,11 @@ class BybitAPI
      */
     public function setCredentials(string $host, string $apiKey = '', string $secret = ''): self
     {
-        Credentials::setHost($host);
-        Credentials::setApiKey($apiKey);
-        Credentials::setSecret($secret);
+        $this->credentials = (new Credentials())
+            ->setHost($host)
+            ->setApiKey($apiKey)
+            ->setSecret($secret);
+
         return $this;
     }
 
@@ -36,7 +41,7 @@ class BybitAPI
      */
     public function setHost(string $host): self
     {
-        Credentials::setHost($host);
+        $this->credentials->setHost($host);
         return $this;
     }
 
@@ -46,7 +51,7 @@ class BybitAPI
      */
     public function setApiKey(string $apiKey): self
     {
-        Credentials::setApiKey($apiKey);
+        $this->setApiKey($apiKey);
         return $this;
     }
 
@@ -56,7 +61,7 @@ class BybitAPI
      */
     public function setSecret(string $secret): self
     {
-        Credentials::setSecret($secret);
+        $this->credentials->setSecret($secret);
         return $this;
     }
 
@@ -67,13 +72,13 @@ class BybitAPI
      * @return IResponseInterface
      * @throws SDKException
      */
-    public function publicEndpoint(string $endpointClassName, ?IParametersInterface $parameters = null): IEndpointInterface
+    public function publicEndpoint(string $endpointClassName): IEndpointInterface
     {
-        if (empty(Credentials::getHost())) {
+        if (empty($this->credentials->getHost())) {
             throw new SDKException("Host must be specified");
         }
 
-        return $this->endpoint($endpointClassName, $parameters);
+        return $this->endpoint($endpointClassName);
     }
 
     /**
@@ -84,13 +89,13 @@ class BybitAPI
      */
     public function privateEndpoint(string $endpointClassName, ?IParametersInterface $parameters = null): IEndpointInterface
     {
-        if (empty(Credentials::getHost())) {
+        if (empty($this->credentials->getHost())) {
             throw new SDKException("Host must be specified");
         }
-        if (empty(Credentials::getApiKey())) {
+        if (empty($this->credentials->getApiKey())) {
             throw new SDKException("Api key must be specified");
         }
-        if (empty(Credentials::getSecret())) {
+        if (empty($this->credentials->getSecret())) {
             throw new SDKException("Client secret must be specified");
         }
 
@@ -106,7 +111,7 @@ class BybitAPI
      */
     private function endpoint(string $endpointClassName, AbstractParameters $parameters = null): IEndpointInterface
     {
-        return RestBuilder::make($endpointClassName, $parameters);
+        return RestBuilder::make($endpointClassName, $this->credentials, $parameters);
     }
 
     /**
@@ -121,4 +126,3 @@ class BybitAPI
         WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode, $wsClientTimeout)->execute();
     }
 }
-

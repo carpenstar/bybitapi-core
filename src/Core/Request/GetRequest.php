@@ -1,30 +1,28 @@
 <?php
-namespace Carpenstar\ByBitAPI\Core\Request;
 
+namespace Carpenstar\ByBitAPI\Core\Request;
 
 use Carpenstar\ByBitAPI\Core\Enums\EnumHttpMethods;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseHandlerInterface;
 
 class GetRequest extends Curl
 {
-
     /**
      * @param string $endpoint
      * @param array $queryParams
      * @return IResponseHandlerInterface
      */
-    public function exec(string $endpoint, array $queryParams): array
+    public function execute(string $endpoint, array $queryParams): array
     {
         $queryString = $this->buildRequestParams($queryParams);
 
-        $this->addCurlOpt(CURLOPT_URL, static::$host . $endpoint . '?' . $queryString)
+        $this->addCurlOpt(CURLOPT_URL, $this->credentials->getHost() . $endpoint . '?' . $queryString)
              ->addCurlOpt(CURLOPT_CUSTOMREQUEST, EnumHttpMethods::GET);
 
-        if ($this->isNeedAuthorization) {
-            $this->auth($queryString);
-        }
+        $this->auth($queryString);
 
-        return $this->execute();
+
+        return $this->query();
     }
 
     /**
@@ -35,5 +33,4 @@ class GetRequest extends Curl
     {
         return http_build_query($queryParams);
     }
-
 }
