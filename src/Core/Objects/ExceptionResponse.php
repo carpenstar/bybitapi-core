@@ -39,7 +39,7 @@ class ExceptionResponse implements IExceptionCurlResponseInterface, IResponseInt
         return $this->retExtInfo;
     }
 
-    public function getResult(): AbstractResponse
+    public function getResult()
     {
         return $this->result->fetch();
     }
