@@ -13,12 +13,12 @@ class EntityCollection extends AbstractCollection
     }
 
     /**
-     * @return ResponseEntity
+     * @return array|IResponseDataInterface
      */
-    public function fetch(): ?IResponseDataInterface
+    public function fetch(): array|IResponseDataInterface
     {
         $item = current($this->collection);
         next($this->collection);
-        return is_bool($item) ? null : $item;
+        return is_bool($item) ? [] : $item;
     }
 }

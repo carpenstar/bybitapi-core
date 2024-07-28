@@ -15,7 +15,7 @@ class GetRequest extends Curl
     public function execute(string $endpoint, array $queryParams): array
     {
         $queryString = $this->buildRequestParams($queryParams);
-
+        $url = $this->credentials->getHost() . $endpoint . '?' . $queryString;
         $this->addCurlOpt(CURLOPT_URL, $this->credentials->getHost() . $endpoint . '?' . $queryString)
              ->addCurlOpt(CURLOPT_CUSTOMREQUEST, EnumHttpMethods::GET);
 

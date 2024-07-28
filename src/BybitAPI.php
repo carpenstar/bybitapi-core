@@ -66,19 +66,18 @@ class BybitAPI
     }
 
     /**
-     * @param string $host
      * @param string $endpointClassName
      * @param IParametersInterface|null $parameters
      * @return IResponseInterface
      * @throws SDKException
      */
-    public function publicEndpoint(string $endpointClassName): IEndpointInterface
+    public function publicEndpoint(string $endpointClassName, ?IParametersInterface $parameters = null): IEndpointInterface
     {
         if (empty($this->credentials->getHost())) {
             throw new SDKException("Host must be specified");
         }
 
-        return $this->endpoint($endpointClassName);
+        return $this->endpoint($endpointClassName, $parameters);
     }
 
     /**
