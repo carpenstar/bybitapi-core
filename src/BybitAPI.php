@@ -2,15 +2,15 @@
 
 namespace Carpenstar\ByBitAPI;
 
+use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsChannelInterface;
+use Workerman\Worker;
 use Carpenstar\ByBitAPI\Core\Auth\Credentials;
-use Carpenstar\ByBitAPI\Core\Enums\EnumOutputMode;
-use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
 use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
+use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
+use Carpenstar\ByBitAPI\Core\Objects\AbstractParameters;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
-use Carpenstar\ByBitAPI\Core\Objects\AbstractParameters;
-use Carpenstar\ByBitAPI\Core\Request\Curl;
 use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
 use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
@@ -115,13 +115,17 @@ class BybitAPI
 
     /**
      * Soon at v.5.1.0.0
-     * @param string $webSocketChannelClassName
-     * @param array $data
+     * @param string $channel
+     * @param array $argument
      * @return void
      * @throws \Exception
      */
-    private function websocket(string $webSocketChannelClassName, IWebSocketArgumentInterface $data, IChannelHandlerInterface $channelHandler, int $mode = EnumOutputMode::MODE_ENTITY, int $wsClientTimeout = IWebSocketArgumentInterface::DEFAULT_SOCKET_CLIENT_TIMEOUT): void
+    public function websocket(string $channel, IWebSocketArgumentInterface $argument, IChannelHandlerInterface $callback): IWebSocketsChannelInterface
     {
-        WebSocketsBuilder::make($webSocketChannelClassName, $data, $channelHandler, $mode, $wsClientTimeout)->execute();
+        if (empty($this->credentials->getHost())) {
+            throw new SDKException("Host must be specified");
+        }
+
+        return WebSocketsBuilder::make($channel, $argument, $this->credentials, $callback);
     }
 }
