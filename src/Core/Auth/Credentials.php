@@ -4,7 +4,7 @@ namespace Carpenstar\ByBitAPI\Core\Auth;
 
 class Credentials
 {
-    private string $host;
+    private string $host = '';
 
     private string $apiKey = '';
 

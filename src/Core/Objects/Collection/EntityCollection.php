@@ -13,9 +13,9 @@ class EntityCollection extends AbstractCollection
     }
 
     /**
-     * @return array|IResponseDataInterface
+     * @return array
      */
-    public function fetch(): array|IResponseDataInterface
+    public function fetch(): array
     {
         $item = current($this->collection);
         next($this->collection);
