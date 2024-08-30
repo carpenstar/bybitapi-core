@@ -15,7 +15,7 @@ class EntityCollection extends AbstractCollection
     /**
      * @return array
      */
-    public function fetch(): array
+    public function fetch()
     {
         $item = current($this->collection);
         next($this->collection);
