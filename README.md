@@ -5,35 +5,38 @@
 # Bybit SDK
 
 <p><b>NOTICE: This is an unofficial SDK, from an independent developer.</b></p>
-<p>Any questions you are interested in regarding the settings, information about the bugs found, you can leave in Issues or by writing to mighty.vlad@gmail.com (ru, en)</p>
+<p>Any questions you are interested in regarding the settings, information about the bugs found, you can leave in Issues, by writing to mighty.vlad@gmail.com (ru, en) or in telegram: @novisad0189</p>
 <p>And yes - the more stars, the more actively this project will develop :-)</p>
 
 ## Requirements
 
 - PHP >= 7.4
+Additional for websockets-package:
+- posix - extension
+- pcntl - extension
 
 ## Installation
 
 [SPOT-trading package](https://github.com/carpenstar/bybitapi-sdk-spot)
 ```sh 
-composer require carpenstar/bybitapi-sdk-spot
+composer require carpenstar/bybitapi-sdk-spot:3.*
 ```
 
 
 [DERIVATIVES-trading package](https://github.com/carpenstar/bybitapi-sdk-derivatives)
 ```sh 
-composer require carpenstar/bybitapi-sdk-derivatives
+composer require carpenstar/bybitapi-sdk-derivatives:3.*
 ```
 
 
-[WEBSOCKETS channels](https://github.com/carpenstar/bybitapi-sdk-websockets)
+[WEBSOCKETS-package](https://github.com/carpenstar/bybitapi-sdk-websockets)
 ```sh 
-composer require carpenstar/bybitapi-sdk-websockets
+composer require carpenstar/bybitapi-sdk-websockets:3.*
 ```
 
 [Market Data - V5](https://github.com/carpenstar/bybitapi-sdk-v5-market) (<b>in developing...</b>)
 ```sh 
-composer require carpenstar/bybitapi-sdk-v5-market
+composer require carpenstar/bybitapi-sdk-v5-market:5.*
 ```
 
 ## API key generation
@@ -60,7 +63,7 @@ $sdk->setApiKey('apiKey');
 $sdk->setSecret('apiSecret');
 
 // A wrapper function that allows you to set connection parameters with one call
-$sdk->setCredentials('https://api-testnet.bybit.com', ['apiKey'], ['apiSecret']) 
+$sdk->setCredentials('https://api-testnet.bybit.com', 'apiKey', 'apiSecret') 
 
 // The function is used to access endpoints that do not require authorization (see endpoint description)
 $sdk->publicEndpoint(<'Endpoint class name'>, <'DTO containing request parameters'>);
@@ -366,7 +369,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---funding-rate-history">Funding Rate History</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/FundingRateHistory">Funding Rate History</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/FundingRateHistory">go</a> </td>
@@ -377,7 +380,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---index-price-kline">Index Price Kline</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/IndexPriceKline">Index Price Kline</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/IndexPriceKline">go</a> </td>
@@ -389,7 +392,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---instrument-info">Instrument Info</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/InstrumentInfo">Instrument Info</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/InstrumentInfo">go</a> </td>
@@ -401,7 +404,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
 </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---kline">Kline</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/Kline">Kline</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/Kline">go</a> </td>
@@ -413,7 +416,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---mark-price-kline">Mark Price Kline</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/MarkPriceKline">Mark Price Kline</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/MarkPriceKline">go</a> </td>
@@ -425,7 +428,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---open-interest">Open Interest</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/OpenInterest">Open Interest</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/OpenInterest">go</a> </td>
@@ -437,7 +440,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---order-book">Order Book</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/OrderBook">Order Book</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/derivatives/public/orderbook">go</a></td>
@@ -449,7 +452,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
 </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---public-trading-history">Public Trading History</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/PublicTradingHistory">Public Trading History</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/PublicTradingHistory">go</a> </td>
@@ -461,7 +464,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
   <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---risk-limit">Risk Limit</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/RiskLimit">Risk Limit</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/RiskLimit">go</a> </td>
@@ -473,7 +476,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
 </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#market-data---ticker-info">Ticker Info</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/TickerInfo">Ticker Info</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/MarketData/TickerInfo">go</a> </td>
@@ -494,7 +497,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---get-trading-fee-rate">Get Trading Fee Rate</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Account/GetTradingFeeRate">Get Trading Fee Rate</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Account/GetTradingFeeRate">go</a></td>
@@ -506,7 +509,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---wallet-balance">Wallet Balance</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Account/WalletBalance">Wallet Balance</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Account/WalletBalance">go</a></td>
@@ -527,7 +530,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---cancel-all-order">Cancel All Order</a >
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/CancelAllOrder">Cancel All Order</a >
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/CancelAllOrder">go</a></td>
@@ -539,7 +542,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---cancel-order">Cancel Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/CancelOrder">Cancel Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/CancelOrder">go</a></td>
@@ -551,7 +554,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---get-open-orders">Get Open Orders</a >
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/GetOpenOrders">Get Open Orders</a >
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/GetOpenOrders">go</a></td>
@@ -563,7 +566,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---get-order-list">Get Order List</a >
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/GetOrderList">Get Order List</a >
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/GetOrderList">go</a></td>
@@ -575,7 +578,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---place-order">Place Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/PlaceOrder">Place Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/PlaceOrder">go</a></td>
@@ -587,7 +590,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---account---order---replace-order">Replace Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/ReplaceOrder">Replace Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Order/ReplaceOrder">go</a></td>
@@ -609,7 +612,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---get-closed-pnl">Get Closed PnL</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/GetClosedPnL">Get Closed PnL</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/GetClosedPnL">go</a></td>
@@ -621,7 +624,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---get-execution-list">Get Execution List</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/GetExecutionList">Get Execution List</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/GetExecutionList">go</a></td>
@@ -633,7 +636,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---my-position">My Position</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/MyPosition">My Position</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/MyPosition">go</a></td>
@@ -645,7 +648,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
     <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---set-auto-add-margin">Set Auto Add Margin</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetAutoAddMargin">Set Auto Add Margin</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetAutoAddMargin">go</a></td>
@@ -657,7 +660,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---set-leverage">Set Leverage</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetLeverage">Set Leverage</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetLeverage">go</a></td>
@@ -669,7 +672,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---set-risk-limit">Set Risk Limit</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetRiskLimit">Set Risk Limit</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetRiskLimit">go</a></td>
@@ -681,7 +684,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---set-trading-stop">Set Trading Stop</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetTradingStop">Set Trading Stop</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SetTradingStop">go</a></td>
@@ -693,7 +696,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---switch-cross-isolated-margin">Switch Cross Isolated Margin</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchCrossIsolatedMargin">Switch Cross Isolated Margin</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchCrossIsolatedMargin">go</a></td>
@@ -705,7 +708,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---switch-position-mode">Switch Position Mode</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchPositionMode">Switch Position Mode</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchPositionMode">go</a></td>
@@ -717,7 +720,7 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master#contract---position---switch-tpsl-mode">Switch TpSl Mode</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchTpSlMode">Switch TpSl Mode</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-derivatives/tree/master/src/Derivatives/Contract/Position/SwitchTpSlMode">go</a></td>
@@ -744,98 +747,98 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---best-bid-ask-price">Best Bid Ask Price</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/BestBidAskPrice">Best Bid Ask Price</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/BestBidAskPrice">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/bid-ask" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/BestBidAskPrice/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/BestBidAskPrice/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---instrument-info">Instrument Info</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/InstrumentInfo">Instrument Info</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/InstrumentInfo">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/instrument" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/InstrumentInfo/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/InstrumentInfo/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---kline">Kline</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/Kline">Kline</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/Kline">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/kline" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/Kline/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/Kline/README_ru.md">RU</a>
  </td>
  </tr>
   <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---last-traded-price">Last Traded Price</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/LastTradedPrice">Last Traded Price</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/LastTradedPrice">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/last-price" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/LastTradedPrice/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/LastTradedPrice/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---merged-order-book">Merged Order Book</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/MergedOrderBook">Merged Order Book</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/MergedOrderBook">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/merge-depth" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/MergedOrderBook/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/MergedOrderBook/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---public-trading-records">Public Trading Records</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/PublicTradingRecords">Public Trading Records</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/PublicTradingRecords">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/recent-trade" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/PublicTradingRecords/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/PublicTradingRecords/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---tickers">Tickers</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/Tickers">Tickers</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/Tickers">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/tickers" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/Tickers/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/Tickers/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#market-data---order-book">Order Book</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/OrderBook">Order Book</a>
  </td>
  <td><b>publicEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/MarketData/OrderBook">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/public/depth" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/OrderBook/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/MarketData/OrderBook/README_ru.md">RU</a>
  </td>
  </tr>
   <tr>
@@ -849,98 +852,98 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#trade---place-order">Place Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/PlaceOrder">Place Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/PlaceOrder">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/place-order" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/PlaceOrder/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/PlaceOrder/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#trade---get-order">Get Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/GetOrder">Get Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/GetOrder">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/get-order" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/GetOrder/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/GetOrder/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="https://github.com/carpenstar/bybitapi-sdk-spot#trade---cancel-order">Cancel Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/CancelOrder">Cancel Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/CancelOrder">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/cancel" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/CancelOrder/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/CancelOrder/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="">Batch Cancel Order</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/BatchCancelOrder">Batch Cancel Order</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/BatchCancelOrder">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/batch-cancel" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/BatchCancelOrder/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/BatchCancelOrder/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="">Batch Cancel Order By Id</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/BatchCancelOrderById">Batch Cancel Order By Id</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/BatchCancelOrderById">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/cancel-by-id" target="_blank">go</a></td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/BatchCancelOrderById/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/BatchCancelOrderById/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="">Open Orders</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/OpenOrders">Open Orders</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/OpenOrders">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/open-order" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/OpenOrders/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/OpenOrders/README_ru.md">RU</a>
  </td>
  </tr>
  <tr>
  <td>
- <a href="">Order History</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/OrderHistory">Order History</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/OrderHistory">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/order-history" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/OrderHistory/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/OrderHistory/README_ru.md">RU</a>
  </td>
  </tr>
   <tr>
  <td>
- <a href="">Trade History</a>
+ <a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/TradeHistory">Trade History</a>
  </td>
  <td><b>privateEndpoint</b></td>
  <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Trade/TradeHistory">go</a> </td>
  <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/trade/my-trades" target="_blank">go</a> </td>
  <td style="text-align: center">
- <a href="">EN</a>,
- <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/TradeHistory/README.md">EN</a>,
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Trade/TradeHistory/README_ru.md">RU</a>
  </td>
  </tr>
 
@@ -954,53 +957,48 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
         <th colspan="2" style="text-align: center; font-weight: bold">Official documentation</th>
     </tr>
     <tr>
-        <td><a href="">All Asset Info</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/AllAssetInfo">All Asset Info</a></td>
         <td><b>publicEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/AllAssetInfo">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/etp/asset-info" target="_blank">go</a> </td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/LeverageToken/AllAssetInfo/README.md">EN</a>
         </td>
     </tr>
     <tr>
-        <td><a href="">Market Info</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/MarketInfo">Market Info</a></td>
         <td><b>publicEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/MarketInfo">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/etp/market-info" target="_blank">go</a> </td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/LeverageToken/MarketInfo/README.md">EN</a>
         </td>
     </tr>
     <tr>
-        <td><a href="">Purchase</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/Purchase">Purchase</a></td>
         <td><b>publicEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/Purchase">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/etp/purchase" target="_blank">go</a></td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/LeverageToken/Purchase/README.md">EN</a>
         </td>
     </tr>
     <tr>
-        <td><a href="">Purchase Redeem History</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/PurchaseRedeemHistory">Purchase Redeem History</a></td>
         <td><b>publicEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/PurchaseRedeemHistory">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/etp/order-history" target="_blank">go</a> </td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/LeverageToken/PurchaseRedeemHistory/README.md">EN</a>
         </td>
     </tr>
     <tr>
-        <td><a href="">Redeem</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/Redeem">Redeem</a></td>
         <td><b>publicEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/LeverageToken/Redeem">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/etp/redeem" target="_blank">go</a></td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/LeverageToken/Redeem/README.md">EN</a>
         </td>
     </tr>
     <tr>
@@ -1013,23 +1011,13 @@ echo "Open Interests Value: {$tickerInfo->getOpenInterestValue()}\n";
         <th colspan="2" style="text-align: center; font-weight: bold">Official documentation</th>
     </tr>
     <tr>
-        <td><a href="">Wallet Balance</a></td>
+        <td><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Account/WalletBalance">Wallet Balance</a></td>
         <td><b>privateEndpoint</b></td>
         <td style="text-align: center"><a href="https://github.com/carpenstar/bybitapi-sdk-spot/tree/master/src/Spot/Account/WalletBalance">go</a> </td>
         <td style="text-align: center"><a href="https://bybit-exchange.github.io/docs/spot/wallet" target="_blank">go</a></td>
         <td style="text-align: center">
-            <a href="">EN</a>,
-            <a href="">RU</a>
+        <a href="https://github.com/carpenstar/bybitapi-sdk-spot/blob/master/src/Spot/Account/WalletBalance/README.md">EN</a>
         </td>
     </tr>
 </table>
 
-
-
-## WebSockets
-
-<p>The carpenstar/bybitapi-sdk-websockets package is currently obsolete because it was not available before version 5 of the SDK kernel</p>
-<p>You can use this package to receive data from public channels, however, in the very near future there will be
-an update has been released that will not be backwards compatible with version 3.0.*</p>
-
-[carpenstar/bybitapi-sdk-websockets](https://github.com/carpenstar/bybitapi-sdk-websockets) - go to package page
