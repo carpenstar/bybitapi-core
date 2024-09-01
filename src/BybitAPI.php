@@ -2,8 +2,7 @@
 
 namespace Carpenstar\ByBitAPI;
 
-use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketsChannelInterface;
-use Workerman\Worker;
+use Carpenstar\ByBitAPI\Core\Interfaces\IWebSocketsChannelInterface;
 use Carpenstar\ByBitAPI\Core\Auth\Credentials;
 use Carpenstar\ByBitAPI\Core\Builders\RestBuilder;
 use Carpenstar\ByBitAPI\Core\Exceptions\SDKException;
@@ -11,9 +10,9 @@ use Carpenstar\ByBitAPI\Core\Objects\AbstractParameters;
 use Carpenstar\ByBitAPI\Core\Interfaces\IEndpointInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IResponseInterface;
 use Carpenstar\ByBitAPI\Core\Interfaces\IParametersInterface;
-use Carpenstar\ByBitAPI\WebSockets\Builders\WebSocketsBuilder;
-use Carpenstar\ByBitAPI\WebSockets\Interfaces\IChannelHandlerInterface;
-use Carpenstar\ByBitAPI\WebSockets\Interfaces\IWebSocketArgumentInterface;
+use Carpenstar\ByBitAPI\Core\Builders\WebSocketsBuilder;
+use Carpenstar\ByBitAPI\Core\Interfaces\IChannelHandlerInterface;
+use Carpenstar\ByBitAPI\Core\Interfaces\IWebSocketArgumentInterface;
 
 class BybitAPI
 {
